@@ -1,0 +1,539 @@
+'use client'
+
+import { useState, useMemo } from 'react'
+import Link from 'next/link'
+import { 
+  Box, 
+  Container, 
+  VStack, 
+  HStack, 
+  Text, 
+  Heading, 
+  Grid, 
+  GridItem,
+  SimpleGrid,
+  Center,
+  Badge
+} from '@chakra-ui/react'
+import { Button } from '@/components/ui/Button'
+import { Input } from '@/components/ui/Input'
+import { Card, CardContent } from '@/components/ui/Card'
+import { MainLayout } from '@/components/layouts/MainLayout'
+import { mockStores } from '@/data/mockData'
+
+// Utility function to shuffle array
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
+export default function HomePage() {
+  const [searchArea, setSearchArea] = useState('')
+  const [searchService, setSearchService] = useState('')
+  const [searchDate, setSearchDate] = useState('')
+  
+  // Get random salons for display
+  const randomSalons = useMemo(() => shuffleArray(mockStores), [])
+
+  const services = [
+    { value: '', label: 'すべてのサービス' },
+    { value: 'hair', label: '美容室・ヘアサロン' },
+    { value: 'nail', label: 'ネイルサロン' },
+    { value: 'eyelash', label: 'まつげエクステ' },
+    { value: 'massage', label: 'リラクゼーション' },
+    { value: 'esthetic', label: 'エステティック' }
+  ]
+
+  return (
+    <MainLayout>
+      {/* Hero Section - Trivago Style */}
+      <Box
+        backgroundImage="linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1559599101-f09722fb4948?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')"
+        backgroundSize="cover"
+        backgroundPosition="center"
+        color="white"
+        py={{ base: 20, md: 32 }}
+        position="relative"
+      >
+        <Container maxW="6xl" position="relative" zIndex={1}>
+          <VStack gap={12} align="center">
+            {/* Main Heading */}
+            <VStack gap={4} textAlign="center" maxW="4xl">
+              <Heading
+                size={{ base: '2xl', md: '4xl', lg: '5xl' }}
+                fontWeight="300"
+                lineHeight="1.1"
+              >
+                理想のサロンを見つけよう
+              </Heading>
+              <Text fontSize={{ base: 'lg', md: 'xl' }} opacity={0.9} fontWeight="300">
+                数千のサロンから最適な価格を比較
+              </Text>
+            </VStack>
+
+            {/* Search Box */}
+            <Box
+              bg="white"
+              borderRadius="lg"
+              p={6}
+              shadow="2xl"
+              w="full"
+              maxW="5xl"
+            >
+              <Grid 
+                templateColumns={{ base: '1fr', md: '2fr 1fr 1fr auto' }} 
+                gap={4}
+                alignItems="end"
+              >
+                <GridItem>
+                  <Input
+                    placeholder="目的地を入力"
+                    size="lg"
+                    value={searchArea}
+                    onChange={(e) => setSearchArea(e.target.value)}
+                  />
+                </GridItem>
+                
+                <GridItem>
+                  <Box position="relative">
+                    <select
+                      value={searchService}
+                      onChange={(e) => setSearchService(e.target.value)}
+                      style={{
+                        width: '100%',
+                        height: '48px',
+                        padding: '16px',
+                        backgroundColor: '#f7fafc',
+                        border: 'none',
+                        borderRadius: '6px',
+                        fontSize: '16px',
+                        color: '#4a5568',
+                        outline: 'none'
+                      }}
+                    >
+                      {services.map((service) => (
+                        <option key={service.value} value={service.value}>
+                          {service.label}
+                        </option>
+                      ))}
+                    </select>
+                  </Box>
+                </GridItem>
+                
+                <GridItem>
+                  <Input
+                    type="date"
+                    size="lg"
+                    value={searchDate}
+                    onChange={(e) => setSearchDate(e.target.value)}
+                  />
+                </GridItem>
+                
+                <GridItem>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                  >
+                    検索
+                  </Button>
+                </GridItem>
+              </Grid>
+            </Box>
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Quick Filters */}
+      <Box bg="gray.50" py={6}>
+        <Container maxW="6xl">
+          <HStack gap={3} flexWrap="wrap" justify="center">
+            <Text fontSize="sm" color="gray.600" fontWeight="medium">人気の検索:</Text>
+            {['渋谷の美容室', 'ネイルサロン 新宿', '表参道 カット', 'エステ 銀座'].map((term) => (
+              <Button
+                key={term}
+                variant="ghost"
+                size="sm"
+              >
+                {term}
+              </Button>
+            ))}
+          </HStack>
+        </Container>
+      </Box>
+
+      {/* Results Section */}
+      <Box py={12} bg="white">
+        <Container maxW="6xl">
+          <VStack gap={8} align="stretch">
+            
+            {/* Header */}
+            <HStack justify="space-between" align="center">
+              <VStack align="start" gap={1}>
+                <Heading size="lg" color="gray.800" fontWeight="600">
+                  おすすめサロン
+                </Heading>
+                <Text color="gray.600" fontSize="md">
+                  {mockStores.length}件のサロンが見つかりました
+                </Text>
+              </VStack>
+              
+              <HStack gap={3}>
+                <Text fontSize="sm" color="gray.600">並び替え:</Text>
+                <Box
+                  as="select"
+                  fontSize="sm"
+                  borderColor="gray.300"
+                  borderRadius="md"
+                  p={2}
+                  bg="white"
+                >
+                  <option value="recommended">おすすめ順</option>
+                  <option value="price">料金の安い順</option>
+                  <option value="rating">評価の高い順</option>
+                  <option value="distance">距離の近い順</option>
+                </Box>
+              </HStack>
+            </HStack>
+
+            {/* Salon Cards */}
+            <VStack gap={6} align="stretch">
+              {mockStores.slice(0, 8).map((store, index) => (
+                <Link key={store.id} href={`/store/${store.id}`}>
+                  <Card 
+                    variant="outline"
+                    _hover={{ 
+                      borderColor: 'blue.300',
+                      shadow: 'lg',
+                      transform: 'translateY(-2px)'
+                    }}
+                    transition="all 0.2s ease"
+                    cursor="pointer"
+                  >
+                  <CardContent p={0}>
+                    <Grid templateColumns={{ base: '1fr', md: '300px 1fr auto' }} gap={0}>
+                      
+                      {/* Image */}
+                      <Box
+                        h={{ base: '200px', md: '180px' }}
+                        bgGradient={`linear(45deg, blue.${400 + index * 50}, teal.${400 + index * 30})`}
+                        position="relative"
+                        borderLeftRadius="lg"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        color="white"
+                      >
+                        <VStack gap={2}>
+                          <Text fontSize="3xl">✂️</Text>
+                          <Badge colorScheme="white" variant="solid" fontSize="xs">
+                            美容室
+                          </Badge>
+                        </VStack>
+                      </Box>
+                      
+                      {/* Content */}
+                      <Box p={6}>
+                        <VStack align="start" gap={4} h="full">
+                          <VStack align="start" gap={2}>
+                            <HStack gap={2}>
+                              <Heading size="md" color="gray.800">
+                                {store.name}
+                              </Heading>
+                              <HStack gap={1} fontSize="sm">
+                                <Text color="orange.400">★</Text>
+                                <Text color="gray.600" fontWeight="medium">4.8</Text>
+                                <Text color="gray.500">(124件)</Text>
+                              </HStack>
+                            </HStack>
+                            
+                            <Text color="gray.600" fontSize="sm" lineHeight="1.4">
+                              {store.description}
+                            </Text>
+                            
+                            <HStack gap={4} fontSize="sm" color="gray.500">
+                              <HStack gap={1}>
+                                <Text>📍</Text>
+                                <Text>徒歩5分</Text>
+                              </HStack>
+                              <HStack gap={1}>
+                                <Text>🚇</Text>
+                                <Text>渋谷駅</Text>
+                              </HStack>
+                              <HStack gap={1}>
+                                <Text>⏰</Text>
+                                <Text>営業中</Text>
+                              </HStack>
+                            </HStack>
+                          </VStack>
+                          
+                          <HStack gap={2} flexWrap="wrap">
+                            <Badge colorScheme="blue" variant="subtle">カット</Badge>
+                            <Badge colorScheme="purple" variant="subtle">カラー</Badge>
+                            <Badge colorScheme="teal" variant="subtle">パーマ</Badge>
+                          </HStack>
+                        </VStack>
+                      </Box>
+                      
+                      {/* Price & Action */}
+                      <Box p={6} borderLeftWidth={1} borderColor="gray.100">
+                        <VStack gap={4} align="end" h="full" justify="space-between">
+                          <VStack align="end" gap={1}>
+                            <Text fontSize="xs" color="gray.500">最安値</Text>
+                            <Heading size="lg" color="blue.600">
+                              ¥5,000
+                            </Heading>
+                            <Text fontSize="xs" color="gray.500">カット・シャンプー</Text>
+                          </VStack>
+                          
+                          <VStack gap={2} w="full">
+                            <Button
+                              variant="primary"
+                              size="sm"
+                              fullWidth
+                            >
+                              予約する
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                            >
+                              詳細を見る
+                            </Button>
+                          </VStack>
+                        </VStack>
+                      </Box>
+                      
+                    </Grid>
+                  </CardContent>
+                </Card>
+                </Link>
+              ))}
+            </VStack>
+
+            {/* Load More */}
+            <Center pt={8}>
+              <Button
+                variant="outline"
+                size="lg"
+              >
+                もっと見る
+              </Button>
+            </Center>
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Random Salons Section */}
+      <Box py={16} bg="white">
+        <Container maxW="6xl">
+          <VStack gap={8} align="stretch">
+            
+            {/* Header */}
+            <VStack gap={2} textAlign="center">
+              <Heading size="lg" color="gray.800" fontWeight="600">
+                その他のサロン
+              </Heading>
+              <Text color="gray.600">
+                新しいサロンを発見してみませんか？
+              </Text>
+            </VStack>
+
+            {/* Random Salon Cards - Grid Layout */}
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
+              {randomSalons.slice(0, 6).map((store, index) => (
+                <Link key={store.id} href={`/store/${store.id}`}>
+                  <Card 
+                    variant="outline"
+                    _hover={{ 
+                      borderColor: 'blue.300',
+                      shadow: 'lg',
+                      transform: 'translateY(-4px)'
+                    }}
+                    transition="all 0.3s ease"
+                    cursor="pointer"
+                    height="full"
+                  >
+                    <CardContent p={0}>
+                      
+                      {/* Image */}
+                      <Box
+                        h="180px"
+                        backgroundImage={store.images?.[0] || `linear-gradient(45deg, ${
+                          ['blue.400', 'purple.400', 'teal.400', 'green.400', 'pink.400', 'orange.400'][index % 6]
+                        }, ${
+                          ['blue.600', 'purple.600', 'teal.600', 'green.600', 'pink.600', 'orange.600'][index % 6]
+                        })`}
+                        backgroundSize="cover"
+                        backgroundPosition="center"
+                        borderTopRadius="lg"
+                        position="relative"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        {!store.images?.[0] && (
+                          <VStack gap={2}>
+                            <Text fontSize="3xl" color="white">
+                              {store.category === 'HAIR_SALON' ? '✂️' : 
+                               store.category === 'NAIL_SALON' ? '💅' : 
+                               store.category === 'RELAXATION' ? '🌸' : '✨'}
+                            </Text>
+                            <Badge colorScheme="whiteAlpha" variant="solid" fontSize="xs">
+                              {store.category === 'HAIR_SALON' ? '美容室' : 
+                               store.category === 'NAIL_SALON' ? 'ネイル' : 
+                               store.category === 'RELAXATION' ? 'リラク' : 'サロン'}
+                            </Badge>
+                          </VStack>
+                        )}
+                        
+                        {/* Rating Badge */}
+                        <Box
+                          position="absolute"
+                          top={3}
+                          right={3}
+                          bg="white"
+                          px={2}
+                          py={1}
+                          borderRadius="md"
+                          shadow="md"
+                        >
+                          <HStack gap={1} fontSize="sm">
+                            <Text color="orange.400">★</Text>
+                            <Text color="gray.700" fontWeight="medium">
+                              {store.rating?.toFixed(1) || '4.0'}
+                            </Text>
+                          </HStack>
+                        </Box>
+                      </Box>
+                      
+                      {/* Content */}
+                      <VStack align="stretch" p={5} gap={3}>
+                        
+                        <VStack align="stretch" gap={2}>
+                          <Heading size="sm" color="gray.800" truncate>
+                            {store.name}
+                          </Heading>
+                          
+                          <Text 
+                            color="gray.600" 
+                            fontSize="sm" 
+                            lineHeight="1.4"
+                            display="-webkit-box"
+                            style={{
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: 'vertical'
+                            }}
+                            overflow="hidden"
+                          >
+                            {store.description}
+                          </Text>
+                          
+                          <HStack gap={3} fontSize="xs" color="gray.500">
+                            <HStack gap={1}>
+                              <Text>📍</Text>
+                              <Text>駅近</Text>
+                            </HStack>
+                            <HStack gap={1}>
+                              <Text>⏰</Text>
+                              <Text>営業中</Text>
+                            </HStack>
+                          </HStack>
+                        </VStack>
+                        
+                        {/* Tags */}
+                        <HStack gap={2} flexWrap="wrap">
+                          {store.tags?.slice(0, 2).map((tag, tagIndex) => (
+                            <Badge key={tagIndex} colorScheme="blue" variant="subtle" fontSize="xs">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </HStack>
+                        
+                        {/* Bottom Info */}
+                        <HStack justify="space-between" align="center" pt={2}>
+                          <Text fontSize="xs" color="gray.500">
+                            ({store.reviewCount || 0}件)
+                          </Text>
+                          <Text fontSize="sm" color="blue.600" fontWeight="medium">
+                            詳細 →
+                          </Text>
+                        </HStack>
+                        
+                      </VStack>
+                      
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </SimpleGrid>
+
+            {/* View All Button */}
+            <Center pt={6}>
+              <Link href="/stores">
+                <Button
+                  variant="outline"
+                  size="lg"
+                >
+                  すべてのサロンを見る
+                </Button>
+              </Link>
+            </Center>
+
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Why Choose Us - Minimal */}
+      <Box py={20} bg="gray.50">
+        <Container maxW="6xl">
+          <VStack gap={12}>
+            <VStack gap={2} textAlign="center">
+              <Heading size="lg" color="gray.800" fontWeight="600">
+                SalonHubを選ぶ理由
+              </Heading>
+              <Text color="gray.600">
+                安心してサロンを選んでいただけます
+              </Text>
+            </VStack>
+            
+            <SimpleGrid columns={{ base: 1, md: 3 }} gap={10} w="full">
+              {[
+                {
+                  icon: '🔍',
+                  title: 'かんたん比較',
+                  description: '複数のサロンの料金やサービスを一度に比較できます。'
+                },
+                {
+                  icon: '💰',
+                  title: '最安値保証',
+                  description: 'いつでも最もお得な価格でサロンを予約できます。'
+                },
+                {
+                  icon: '📱',
+                  title: '即座に予約',
+                  description: 'リアルタイムの空き状況で即座に予約が完了します。'
+                }
+              ].map((feature, index) => (
+                <VStack key={index} gap={4} textAlign="center">
+                  <Box fontSize="3xl">{feature.icon}</Box>
+                  <VStack gap={2}>
+                    <Heading size="md" color="gray.800" fontWeight="600">
+                      {feature.title}
+                    </Heading>
+                    <Text color="gray.600" lineHeight="1.6">
+                      {feature.description}
+                    </Text>
+                  </VStack>
+                </VStack>
+              ))}
+            </SimpleGrid>
+          </VStack>
+        </Container>
+      </Box>
+    </MainLayout>
+  )
+}

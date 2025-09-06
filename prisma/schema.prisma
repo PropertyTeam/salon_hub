@@ -1,0 +1,297 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  phone     String?
+  role      UserRole @default(CUSTOMER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  reservations Reservation[]
+  inquiries    Inquiry[]
+  userCoupons  UserCoupon[]
+  reviews      Review[]
+
+  @@map("users")
+}
+
+model Store {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  address     String
+  phone       String
+  email       String
+  website     String?
+  isActive    Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Business hours
+  businessHours BusinessHour[]
+  holidays      Holiday[]
+
+  // Relations
+  staff        Staff[]
+  menus        Menu[]
+  reservations Reservation[]
+  coupons      Coupon[]
+  inquiries    Inquiry[]
+  reviews      Review[]
+
+  @@map("stores")
+}
+
+model Staff {
+  id        String   @id @default(cuid())
+  storeId   String
+  name      String
+  email     String   @unique
+  password  String
+  role      StaffRole @default(STAFF)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  store        Store         @relation(fields: [storeId], references: [id])
+  reservations Reservation[]
+  schedules    Schedule[]
+
+  @@map("staff")
+}
+
+model Menu {
+  id          String  @id @default(cuid())
+  storeId     String
+  name        String
+  description String?
+  price       Int
+  duration    Int     // minutes
+  isActive    Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  store            Store             @relation(fields: [storeId], references: [id])
+  reservationMenus ReservationMenu[]
+
+  @@map("menus")
+}
+
+model Reservation {
+  id         String            @id @default(cuid())
+  storeId    String
+  userId     String
+  staffId    String?
+  date       DateTime
+  startTime  DateTime
+  endTime    DateTime
+  status     ReservationStatus @default(PENDING)
+  totalPrice Int
+  notes      String?
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  // Relations
+  store           Store             @relation(fields: [storeId], references: [id])
+  user            User              @relation(fields: [userId], references: [id])
+  staff           Staff?            @relation(fields: [staffId], references: [id])
+  reservationMenus ReservationMenu[]
+  payment         Payment?
+
+  @@map("reservations")
+}
+
+model ReservationMenu {
+  id            String @id @default(cuid())
+  reservationId String
+  menuId        String
+  quantity      Int    @default(1)
+
+  // Relations
+  reservation Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+  menu        Menu        @relation(fields: [menuId], references: [id])
+
+  @@map("reservation_menus")
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  reservationId String        @unique
+  amount        Int
+  status        PaymentStatus @default(PENDING)
+  stripePaymentId String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  // Relations
+  reservation Reservation @relation(fields: [reservationId], references: [id])
+
+  @@map("payments")
+}
+
+model Coupon {
+  id          String     @id @default(cuid())
+  storeId     String
+  name        String
+  description String?
+  code        String     @unique
+  discountType DiscountType
+  discountValue Int
+  minAmount   Int?
+  maxUses     Int?
+  usedCount   Int        @default(0)
+  validFrom   DateTime
+  validTo     DateTime
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  store       Store        @relation(fields: [storeId], references: [id])
+  userCoupons UserCoupon[]
+
+  @@map("coupons")
+}
+
+model UserCoupon {
+  id       String @id @default(cuid())
+  userId   String
+  couponId String
+  usedAt   DateTime?
+
+  // Relations
+  user   User   @relation(fields: [userId], references: [id])
+  coupon Coupon @relation(fields: [couponId], references: [id])
+
+  @@unique([userId, couponId])
+  @@map("user_coupons")
+}
+
+model BusinessHour {
+  id        String    @id @default(cuid())
+  storeId   String
+  dayOfWeek Int       // 0=Sunday, 1=Monday, etc.
+  openTime  String    // HH:mm format
+  closeTime String    // HH:mm format
+  isClosed  Boolean   @default(false)
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id])
+
+  @@unique([storeId, dayOfWeek])
+  @@map("business_hours")
+}
+
+model Holiday {
+  id      String   @id @default(cuid())
+  storeId String
+  date    DateTime
+  name    String
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id])
+
+  @@map("holidays")
+}
+
+model Schedule {
+  id        String   @id @default(cuid())
+  staffId   String
+  date      DateTime
+  startTime DateTime
+  endTime   DateTime
+  isAvailable Boolean @default(true)
+
+  // Relations
+  staff Staff @relation(fields: [staffId], references: [id])
+
+  @@map("schedules")
+}
+
+model Inquiry {
+  id        String        @id @default(cuid())
+  storeId   String?
+  userId    String?
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    InquiryStatus @default(PENDING)
+  reply     String?
+  repliedAt DateTime?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  // Relations
+  store Store? @relation(fields: [storeId], references: [id])
+  user  User?  @relation(fields: [userId], references: [id])
+
+  @@map("inquiries")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  storeId   String
+  userId    String
+  rating    Int      // 1-5
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  store Store @relation(fields: [storeId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@map("reviews")
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+enum StaffRole {
+  OWNER
+  MANAGER
+  STAFF
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED_AMOUNT
+}
+
+enum InquiryStatus {
+  PENDING
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
