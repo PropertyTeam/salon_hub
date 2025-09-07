@@ -48,7 +48,7 @@ export function StoreCard({ store, onClick }: StoreCardProps) {
             <div className="flex items-center space-x-1">
               <span className="text-yellow-400">⭐</span>
               <span className="text-sm text-gray-600">
-                4.8 (124件)
+{store.rating?.toFixed(1) || '4.0'} ({store.reviewCount || 124}件)
               </span>
             </div>
 

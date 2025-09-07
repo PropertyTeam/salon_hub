@@ -36,65 +36,175 @@ export function MainHeader({ isLoggedIn = false, user }: MainHeaderProps) {
         left={0} 
         right={0} 
         zIndex={1000}
-        bg="rgba(255, 255, 255, 0.95)"
-        backdropFilter="blur(12px)"
-        borderBottom="1px solid"
-        borderColor="border.subtle"
-        shadow="sm"
-        transition="all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+        bg="rgba(224, 242, 254, 0.85)"
+        backdropFilter="blur(20px) saturate(180%)"
+        borderBottom="1px solid rgba(255, 255, 255, 0.3)"
+        shadow="0 8px 32px rgba(6, 182, 212, 0.15), 0 2px 16px rgba(255, 255, 255, 0.1)"
+        transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+        _before={{
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          bg: 'linear-gradient(90deg, rgba(147, 51, 234, 0.1), rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1))',
+          zIndex: -1
+        }}
+        _after={{
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '2px',
+          bg: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent)',
+          zIndex: 1
+        }}
       >
         <Container maxW="7xl" py={4}>
           <HStack justify="space-between" align="center">
             
             {/* Logo */}
             <Link href="/">
-              <Heading
-                size="lg"
-                fontWeight="bold"
-                bgGradient="linear(135deg, primary.500, secondary.500)"
-                bgClip="text"
-                _hover={{ 
-                  bgGradient: "linear(135deg, primary.600, secondary.600)",
-                  transform: "scale(1.05)"
-                }}
-                transition="all 0.2s"
-                cursor="pointer"
-              >
-                SalonHub
-              </Heading>
+              <HStack gap={3} align="center">
+                <Box position="relative">
+                  <Box
+                    w={12}
+                    h={12}
+                    bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                    borderRadius="20px"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    shadow="0 8px 25px rgba(102, 126, 234, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)"
+                    border="1px solid rgba(255, 255, 255, 0.3)"
+                    position="relative"
+                    _hover={{
+                      transform: "rotate(12deg) scale(1.1)",
+                      shadow: "0 12px 35px rgba(102, 126, 234, 0.6)"
+                    }}
+                    _before={{
+                      content: '""',
+                      position: 'absolute',
+                      top: '2px',
+                      left: '2px',
+                      right: '2px',
+                      bottom: '2px',
+                      bg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent)',
+                      borderRadius: '18px',
+                      pointerEvents: 'none'
+                    }}
+                    transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+                  >
+                    <Box w={6} h={6} bg="white" borderRadius="50%" opacity={0.9}></Box>
+                  </Box>
+                  {/* オービット装飾 */}
+                  <Box
+                    position="absolute"
+                    top="50%"
+                    left="50%"
+                    w="24px"
+                    h="24px"
+                    border="1px solid rgba(255, 255, 255, 0.3)"
+                    borderRadius="50%"
+                    transform="translate(-50%, -50%)"
+                    animation="orbit 8s linear infinite"
+                    _before={{
+                      content: '""',
+                      position: 'absolute',
+                      top: '-2px',
+                      left: '10px',
+                      w: '4px',
+                      h: '4px',
+                      bg: 'rgba(255, 255, 255, 0.8)',
+                      borderRadius: '50%'
+                    }}
+                  />
+                </Box>
+                <VStack align="start" gap={0}>
+                  <Box
+                    bg="linear-gradient(135deg, #667eea 0%, #764ba2 50%, #29b6f6 100%)"
+                    bgClip="text"
+                    color="transparent"
+                    fontWeight="800"
+                    fontSize="2xl"
+                    letterSpacing="-0.02em"
+                    _hover={{
+                      transform: "translateY(-1px)",
+                      filter: "drop-shadow(0 0 8px rgba(102, 126, 234, 0.4))"
+                    }}
+                    transition="all 0.3s ease"
+                  >
+                    SalonHub
+                  </Box>
+                  <Text 
+                    fontSize="xs" 
+                    color="slate.600"
+                    fontWeight="600"
+                    letterSpacing="0.05em"
+                  >
+                    BEAUTY SALON
+                  </Text>
+                </VStack>
+              </HStack>
             </Link>
 
             {/* Desktop Navigation */}
-            <HStack gap={8} display={{ base: 'none', md: 'flex' }}>
+            <HStack gap={6} display={{ base: 'none', md: 'flex' }}>
               <Link href="/stores">
-                <Text
-                  color="text.muted"
-                  fontWeight="medium"
-                  fontSize="sm"
+                <Box
+                  px={4}
+                  py={2}
+                  borderRadius="16px"
+                  bg="rgba(6, 182, 212, 0.05)"
                   _hover={{ 
-                    color: 'primary.600',
-                    transform: 'translateY(-1px)'
+                    bg: "rgba(6, 182, 212, 0.15)",
+                    transform: 'translateY(-2px)',
+                    shadow: "0 4px 12px rgba(6, 182, 212, 0.2)"
                   }}
-                  transition="all 0.2s"
+                  transition="all 0.3s ease"
                   cursor="pointer"
                 >
-                  サロン一覧
-                </Text>
+                  <Text
+                    color="slate.700"
+                    fontWeight="600"
+                    fontSize="sm"
+                    bg="transparent"
+                    px={3}
+                    py={1}
+                    borderRadius="8px"
+                  >
+                    サロン一覧
+                  </Text>
+                </Box>
               </Link>
               <Link href="/help">
-                <Text
-                  color="text.muted"
-                  fontWeight="medium"
-                  fontSize="sm"
+                <Box
+                  px={4}
+                  py={2}
+                  borderRadius="16px"
+                  bg="rgba(6, 182, 212, 0.05)"
                   _hover={{ 
-                    color: 'primary.600',
-                    transform: 'translateY(-1px)'
+                    bg: "rgba(6, 182, 212, 0.15)",
+                    transform: 'translateY(-2px)',
+                    shadow: "0 4px 12px rgba(6, 182, 212, 0.2)"
                   }}
-                  transition="all 0.2s"
+                  transition="all 0.3s ease"
                   cursor="pointer"
                 >
-                  ヘルプ
-                </Text>
+                  <Text
+                    color="slate.700"
+                    fontWeight="600"
+                    fontSize="sm"
+                    bg="transparent"
+                    px={3}
+                    py={1}
+                    borderRadius="8px"
+                  >
+                    ヘルプ
+                  </Text>
+                </Box>
               </Link>
             </HStack>
 

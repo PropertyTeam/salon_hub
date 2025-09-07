@@ -52,24 +52,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         case 'primary':
           return {
             ...baseProps,
-            bg: 'linear-gradient(135deg, primary.500, primary.700)',
-            color: 'white',
+            bg: 'transparent',
+            color: 'primary.600',
             _hover: {
               ...baseProps._hover,
-              bg: 'linear-gradient(135deg, primary.600, primary.800)',
-              shadow: 'primary.500/25'
-            },
-            shadow: 'md'
+              bg: 'transparent',
+              color: 'primary.700'
+            }
           };
         
         case 'secondary':
           return {
             ...baseProps,
-            bg: 'neutral.100',
+            bg: 'transparent',
             color: 'neutral.700',
             _hover: {
               ...baseProps._hover,
-              bg: 'neutral.200',
+              bg: 'transparent',
+              color: 'neutral.800'
             },
             border: '1px solid',
             borderColor: 'border.default'
@@ -78,11 +78,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         case 'danger':
           return {
             ...baseProps,
-            bg: 'linear-gradient(135deg, red.500, red.600)',
-            color: 'white',
+            bg: 'transparent',
+            color: 'red.600',
             _hover: {
               ...baseProps._hover,
-              bg: 'linear-gradient(135deg, red.600, red.700)',
+              bg: 'transparent',
+              color: 'red.700'
             }
           };
           
@@ -93,7 +94,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             color: 'text.default',
             _hover: {
               ...baseProps._hover,
-              bg: 'bg.subtle',
+              bg: 'transparent',
             }
           };
           
@@ -108,18 +109,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               ...baseProps._hover,
               borderColor: 'primary.500',
               color: 'primary.600',
-              bg: 'primary.50'
+              bg: 'transparent'
             }
           };
           
         case 'gradient':
           return {
             ...baseProps,
-            bg: 'linear-gradient(135deg, primary.400, secondary.500)',
-            color: 'white',
+            bg: 'transparent',
+            color: 'primary.600',
             _hover: {
               ...baseProps._hover,
-              bg: 'linear-gradient(135deg, primary.500, secondary.600)',
+              bg: 'transparent',
+              color: 'primary.700'
             }
           };
           
