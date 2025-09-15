@@ -131,18 +131,6 @@ export function MainFooter() {
         <VStack gap={6} textAlign="center" mb={12}>
           <HStack gap={3} justify="center">
             <Box
-              w={12}
-              h={12}
-              bg="linear-gradient(135deg, cyan.400, sky.500, blue.400)"
-              borderRadius="20px"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              shadow="0 8px 25px rgba(6, 182, 212, 0.3)"
-            >
-              <Box w={8} h={8} bg="white" borderRadius="50%" opacity={0.9}></Box>
-            </Box>
-            <Box
               bg="linear-gradient(135deg, cyan.300, sky.400, blue.300)"
               bgClip="text"
               color="transparent"

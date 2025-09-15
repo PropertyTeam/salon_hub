@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Card, CardContent } from '@/components/ui/Card'
 import { MainLayout } from '@/components/layouts/MainLayout'
+import { SalonCarousel } from '@/components/ui/SalonCarousel'
 import { mockStores } from '@/data/mockData'
 
 export default function HomePage() {
@@ -229,6 +230,13 @@ export default function HomePage() {
           </HStack>
         </Container>
       </Box>
+
+      {/* Featured Salons Carousel */}
+      <SalonCarousel 
+        salons={mockStores.slice(0, 9)} 
+        title="おすすめ複数サロン"
+        subtitle="厳選された人気サロンをスライドで探索"
+      />
 
       {/* Results Section */}
       <Box py={12} bg="white">
