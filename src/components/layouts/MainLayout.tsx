@@ -1,8 +1,8 @@
 'use client'
 
 import { Box } from '@chakra-ui/react'
-import { MainHeader } from '@/components/headers/MainHeader'
-import { MainFooter } from '@/components/footers/MainFooter'
+import { MainHeader } from '@/components/navigation/MainHeader'
+import { MainFooter } from '@/components/navigation/MainFooter'
 
 interface MainLayoutProps {
   children: React.ReactNode
@@ -23,7 +23,7 @@ export function MainLayout({
       minH="100vh" 
       display="flex" 
       flexDirection="column" 
-      bg="linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 25%, #81d4fa 50%, #4fc3f7 75%, #29b6f6 100%)"
+      bg="linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #94a3b8 75%, #64748b 100%)"
       position="relative"
       overflow="hidden"
     >

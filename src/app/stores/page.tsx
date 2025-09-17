@@ -19,7 +19,7 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Card, CardContent } from '@/components/ui/Card'
 import { MainLayout } from '@/components/layouts/MainLayout'
-import { mockStores } from '@/data/mockData'
+import { mockStores } from '../../../data/mockData'
 
 export default function StoresPage() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -111,22 +111,7 @@ export default function StoresPage() {
             />
             
             <VStack gap={4} position="relative" zIndex={1}>
-              <HStack gap={3}>
-                <Text fontSize="3xl" animation="pulse 2s infinite">🌟</Text>
-                <Box
-                  bg="linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)"
-                  bgClip="text"
-                  color="transparent"
-                  fontWeight="900"
-                  fontSize="5xl"
-                  lineHeight="1.1"
-                  letterSpacing="-0.03em"
-                  filter="drop-shadow(0 0 20px rgba(102, 126, 234, 0.3))"
-                >
-                  COSMIC SALON
-                </Box>
-                <Text fontSize="3xl" animation="pulse 2s infinite 0.5s">🌟</Text>
-              </HStack>
+         
               
               <Box
                 bg="transparent"

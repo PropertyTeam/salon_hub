@@ -23,7 +23,7 @@ export function StoreCard({ store, onClick }: StoreCardProps) {
       className="cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
       onClick={onClick}
     >
-      <div className="h-48 bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-white relative overflow-hidden">
+      <div className="h-48 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-white relative overflow-hidden">
         <div className="text-center">
           <div className="text-5xl mb-2">{serviceIcons.hair}</div>
           <span className="text-lg font-semibold">美容室・ヘアサロン</span>

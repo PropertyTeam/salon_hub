@@ -20,7 +20,75 @@ import { Input } from '@/components/ui/Input'
 import { Card, CardContent } from '@/components/ui/Card'
 import { MainLayout } from '@/components/layouts/MainLayout'
 import { SalonCarousel } from '@/components/ui/SalonCarousel'
-import { mockStores } from '@/data/mockData'
+const mockStores = [
+  {
+    id: '1',
+    name: 'Hair Studio TOKYO',
+    description: '東京で最高のヘアサロン体験を提供します。経験豊富なスタイリストがお客様のご要望にお応えします。',
+    address: '東京都渋谷区神南1-15-3',
+    phone: '03-1234-5678',
+    email: 'info@hairstudio.com',
+    website: 'https://hairstudio.com',
+    isActive: true,
+    isPublic: true,
+    rating: 4.8,
+    reviewCount: 124,
+    images: [
+      'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop'
+    ],
+    ownerId: '3',
+    category: 'HAIR_SALON',
+    tags: ['カット', 'カラー', 'パーマ', 'トリートメント'],
+    createdAt: new Date('2024-01-01'),
+    updatedAt: new Date('2024-01-15'),
+  },
+  {
+    id: '2',
+    name: 'Nail Art Paradise',
+    description: 'プロフェッショナルなネイルアーティストによる美しいネイルアートをご提供。',
+    address: '東京都新宿区歌舞伎町2-25-8',
+    phone: '03-2345-6789',
+    email: 'info@nailart.com',
+    website: 'https://nailart-paradise.com',
+    isActive: true,
+    isPublic: true,
+    rating: 4.6,
+    reviewCount: 89,
+    images: [
+      'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=600&fit=crop'
+    ],
+    ownerId: '3',
+    category: 'NAIL_SALON',
+    tags: ['ネイルアート', 'ジェルネイル', 'マニキュア', 'ケア'],
+    createdAt: new Date('2024-01-05'),
+    updatedAt: new Date('2024-01-10'),
+  },
+  {
+    id: '3',
+    name: 'Relax Spa & Massage',
+    description: 'リラクゼーションとマッサージで心身ともにリフレッシュしていただけるサロンです。',
+    address: '東京都港区青山3-10-5',
+    phone: '03-3456-7890',
+    email: 'info@relaxspa.com',
+    website: 'https://relaxspa.com',
+    isActive: true,
+    isPublic: true,
+    rating: 4.9,
+    reviewCount: 203,
+    images: [
+      'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop'
+    ],
+    ownerId: '3',
+    category: 'RELAXATION',
+    tags: ['マッサージ', 'リラクゼーション', 'アロマ', 'フェイシャル'],
+    createdAt: new Date('2024-01-03'),
+    updatedAt: new Date('2024-01-12'),
+  },
+];
 
 export default function HomePage() {
   const [searchArea, setSearchArea] = useState('')
@@ -107,7 +175,7 @@ export default function HomePage() {
                 fontWeight="300"
                 lineHeight="1.1"
               >
-                理想のサロンを見つけよう
+                あなたのサロンを見つけよう
               </Heading>
               <Text fontSize={{ base: 'lg', md: 'xl' }} opacity={0.9} fontWeight="300">
                 数千のサロンから最適な価格を比較
@@ -300,9 +368,24 @@ export default function HomePage() {
                         justifyContent="center"
                         color="white"
                       >
-                        <VStack gap={2}>
-                          <Text fontSize="3xl">✂️</Text>
-                          <Badge colorScheme="white" variant="solid" fontSize="xs">
+                        <VStack gap={3}>
+                          <Box
+                            fontSize="4xl"
+                            filter="drop-shadow(0 4px 8px rgba(255, 255, 255, 0.3))"
+                            animation="float 3s ease-in-out infinite"
+                          >
+                            ✂️
+                          </Box>
+                          <Badge
+                            bg="rgba(255, 255, 255, 0.9)"
+                            color="gray.700"
+                            fontSize="sm"
+                            px={4}
+                            py={2}
+                            borderRadius="full"
+                            fontWeight="600"
+                            shadow="0 4px 12px rgba(0, 0, 0, 0.1)"
+                          >
                             美容室
                           </Badge>
                         </VStack>
@@ -346,9 +429,42 @@ export default function HomePage() {
                           </VStack>
                           
                           <HStack gap={2} flexWrap="wrap">
-                            <Badge colorScheme="blue" variant="subtle">カット</Badge>
-                            <Badge colorScheme="purple" variant="subtle">カラー</Badge>
-                            <Badge colorScheme="teal" variant="subtle">パーマ</Badge>
+                            <Badge
+                              bg="linear-gradient(135deg, #3b82f6, #1d4ed8)"
+                              color="white"
+                              px={3}
+                              py={1}
+                              borderRadius="full"
+                              fontSize="xs"
+                              fontWeight="600"
+                              shadow="0 2px 8px rgba(59, 130, 246, 0.3)"
+                            >
+                              カット
+                            </Badge>
+                            <Badge
+                              bg="linear-gradient(135deg, #8b5cf6, #7c3aed)"
+                              color="white"
+                              px={3}
+                              py={1}
+                              borderRadius="full"
+                              fontSize="xs"
+                              fontWeight="600"
+                              shadow="0 2px 8px rgba(139, 92, 246, 0.3)"
+                            >
+                              カラー
+                            </Badge>
+                            <Badge
+                              bg="linear-gradient(135deg, #06b6d4, #0891b2)"
+                              color="white"
+                              px={3}
+                              py={1}
+                              borderRadius="full"
+                              fontSize="xs"
+                              fontWeight="600"
+                              shadow="0 2px 8px rgba(6, 182, 212, 0.3)"
+                            >
+                              パーマ
+                            </Badge>
                           </HStack>
                         </VStack>
                       </Box>
@@ -451,15 +567,29 @@ export default function HomePage() {
                         justifyContent="center"
                       >
                         {!store.images?.[0] && (
-                          <VStack gap={2}>
-                            <Text fontSize="3xl" color="white">
-                              {store.category === 'HAIR_SALON' ? '✂️' : 
-                               store.category === 'NAIL_SALON' ? '💅' : 
+                          <VStack gap={3}>
+                            <Box
+                              fontSize="5xl"
+                              filter="drop-shadow(0 6px 12px rgba(255, 255, 255, 0.4))"
+                              animation="float 4s ease-in-out infinite"
+                            >
+                              {store.category === 'HAIR_SALON' ? '✂️' :
+                               store.category === 'NAIL_SALON' ? '💅' :
                                store.category === 'RELAXATION' ? '🌸' : '✨'}
-                            </Text>
-                            <Badge colorScheme="whiteAlpha" variant="solid" fontSize="xs">
-                              {store.category === 'HAIR_SALON' ? '美容室' : 
-                               store.category === 'NAIL_SALON' ? 'ネイル' : 
+                            </Box>
+                            <Badge
+                              bg="rgba(255, 255, 255, 0.95)"
+                              color="gray.700"
+                              fontSize="sm"
+                              px={4}
+                              py={2}
+                              borderRadius="full"
+                              fontWeight="700"
+                              shadow="0 6px 15px rgba(0, 0, 0, 0.15)"
+                              border="1px solid rgba(255, 255, 255, 0.5)"
+                            >
+                              {store.category === 'HAIR_SALON' ? '美容室' :
+                               store.category === 'NAIL_SALON' ? 'ネイル' :
                                store.category === 'RELAXATION' ? 'リラク' : 'サロン'}
                             </Badge>
                           </VStack>
@@ -522,7 +652,17 @@ export default function HomePage() {
                         {/* Tags */}
                         <HStack gap={2} flexWrap="wrap">
                           {store.tags?.slice(0, 2).map((tag, tagIndex) => (
-                            <Badge key={tagIndex} colorScheme="blue" variant="subtle" fontSize="xs">
+                            <Badge
+                              key={tagIndex}
+                              bg="linear-gradient(135deg, #06b6d4, #3b82f6)"
+                              color="white"
+                              px={3}
+                              py={1}
+                              borderRadius="full"
+                              fontSize="xs"
+                              fontWeight="600"
+                              shadow="0 2px 8px rgba(6, 182, 212, 0.3)"
+                            >
                               {tag}
                             </Badge>
                           ))}

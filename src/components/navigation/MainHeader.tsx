@@ -158,7 +158,7 @@ export function MainHeader({ isLoggedIn = false, user }: MainHeaderProps) {
                   py={2}
                   borderRadius="16px"
                   bg="rgba(6, 182, 212, 0.05)"
-                  _hover={{ 
+                  _hover={{
                     bg: "rgba(6, 182, 212, 0.15)",
                     transform: 'translateY(-2px)',
                     shadow: "0 4px 12px rgba(6, 182, 212, 0.2)"
@@ -179,13 +179,40 @@ export function MainHeader({ isLoggedIn = false, user }: MainHeaderProps) {
                   </Text>
                 </Box>
               </Link>
+              <Link href="/coupons">
+                <Box
+                  px={4}
+                  py={2}
+                  borderRadius="16px"
+                  bg="rgba(6, 182, 212, 0.05)"
+                  _hover={{
+                    bg: "rgba(6, 182, 212, 0.15)",
+                    transform: 'translateY(-2px)',
+                    shadow: "0 4px 12px rgba(6, 182, 212, 0.2)"
+                  }}
+                  transition="all 0.3s ease"
+                  cursor="pointer"
+                >
+                  <Text
+                    color="slate.700"
+                    fontWeight="600"
+                    fontSize="sm"
+                    bg="transparent"
+                    px={3}
+                    py={1}
+                    borderRadius="8px"
+                  >
+                    クーポン
+                  </Text>
+                </Box>
+              </Link>
               <Link href="/help">
                 <Box
                   px={4}
                   py={2}
                   borderRadius="16px"
                   bg="rgba(6, 182, 212, 0.05)"
-                  _hover={{ 
+                  _hover={{
                     bg: "rgba(6, 182, 212, 0.15)",
                     transform: 'translateY(-2px)',
                     shadow: "0 4px 12px rgba(6, 182, 212, 0.2)"
@@ -211,52 +238,54 @@ export function MainHeader({ isLoggedIn = false, user }: MainHeaderProps) {
             {/* Auth Section */}
             <HStack gap={4}>
               {isLoggedIn && user ? (
-                <HStack gap={3} cursor="pointer">
-                  <Box
-                    w={8}
-                    h={8}
-                    bg="primary.100"
-                    color="primary.600"
-                    borderRadius="full"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    fontSize="sm"
-                    fontWeight="medium"
-                    shadow="md"
-                    _hover={{ transform: 'scale(1.05)' }}
-                    transition="transform 0.2s"
-                  >
-                    {user.avatar ? (
-                      <Image
-                        src={user.avatar}
-                        alt={user.name}
-                        w="full"
-                        h="full"
-                        borderRadius="full"
-                        objectFit="cover"
-                      />
-                    ) : (
-                      getInitials(user.name)
-                    )}
-                  </Box>
-                  <Text 
-                    fontSize="sm" 
-                    color="text.default" 
-                    fontWeight="medium"
-                    display={{ base: 'none', md: 'block' }}
-                  >
-                    {user.name}
-                  </Text>
-                </HStack>
+                <Link href="/my">
+                  <HStack gap={3} cursor="pointer">
+                    <Box
+                      w={8}
+                      h={8}
+                      bg="primary.100"
+                      color="primary.600"
+                      borderRadius="full"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      fontSize="sm"
+                      fontWeight="medium"
+                      shadow="md"
+                      _hover={{ transform: 'scale(1.05)' }}
+                      transition="transform 0.2s"
+                    >
+                      {user.avatar ? (
+                        <Image
+                          src={user.avatar}
+                          alt={user.name}
+                          w="full"
+                          h="full"
+                          borderRadius="full"
+                          objectFit="cover"
+                        />
+                      ) : (
+                        getInitials(user.name)
+                      )}
+                    </Box>
+                    <Text
+                      fontSize="sm"
+                      color="text.default"
+                      fontWeight="medium"
+                      display={{ base: 'none', md: 'block' }}
+                    >
+                      {user.name}
+                    </Text>
+                  </HStack>
+                </Link>
               ) : (
                 <HStack gap={3} display={{ base: 'none', md: 'flex' }}>
-                  <Link href="/login">
+                  <Link href="/auth/login">
                     <Button variant="outline" size="sm">
                       ログイン
                     </Button>
                   </Link>
-                  <Link href="/register">
+                  <Link href="/auth/register">
                     <Button variant="primary" size="sm">
                       新規登録
                     </Button>
@@ -306,9 +335,9 @@ export function MainHeader({ isLoggedIn = false, user }: MainHeaderProps) {
             {/* Navigation Links */}
             <VStack align="stretch" gap={4}>
               <Link href="/stores">
-                <Text 
-                  fontSize="lg" 
-                  fontWeight="medium" 
+                <Text
+                  fontSize="lg"
+                  fontWeight="medium"
                   color="text.default"
                   _hover={{ color: 'primary.600' }}
                   py={3}
@@ -317,10 +346,22 @@ export function MainHeader({ isLoggedIn = false, user }: MainHeaderProps) {
                   サロン一覧
                 </Text>
               </Link>
+              <Link href="/coupons">
+                <Text
+                  fontSize="lg"
+                  fontWeight="medium"
+                  color="text.default"
+                  _hover={{ color: 'primary.600' }}
+                  py={3}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  クーポン
+                </Text>
+              </Link>
               <Link href="/help">
-                <Text 
-                  fontSize="lg" 
-                  fontWeight="medium" 
+                <Text
+                  fontSize="lg"
+                  fontWeight="medium"
                   color="text.default"
                   _hover={{ color: 'primary.600' }}
                   py={3}
@@ -368,15 +409,21 @@ export function MainHeader({ isLoggedIn = false, user }: MainHeaderProps) {
                 </HStack>
                 
                 <VStack align="stretch" gap={2}>
-                  <Button variant="ghost" fullWidth onClick={() => setIsMenuOpen(false)}>
-                    マイページ
-                  </Button>
-                  <Button variant="ghost" fullWidth onClick={() => setIsMenuOpen(false)}>
-                    予約履歴
-                  </Button>
-                  <Button variant="ghost" fullWidth onClick={() => setIsMenuOpen(false)}>
-                    設定
-                  </Button>
+                  <Link href="/my">
+                    <Button variant="ghost" fullWidth onClick={() => setIsMenuOpen(false)}>
+                      マイページ
+                    </Button>
+                  </Link>
+                  <Link href="/my/reservations">
+                    <Button variant="ghost" fullWidth onClick={() => setIsMenuOpen(false)}>
+                      予約履歴
+                    </Button>
+                  </Link>
+                  <Link href="/my/account">
+                    <Button variant="ghost" fullWidth onClick={() => setIsMenuOpen(false)}>
+                      設定
+                    </Button>
+                  </Link>
                   <Button variant="danger" fullWidth onClick={() => setIsMenuOpen(false)}>
                     ログアウト
                   </Button>
@@ -384,18 +431,18 @@ export function MainHeader({ isLoggedIn = false, user }: MainHeaderProps) {
               </VStack>
             ) : (
               <VStack align="stretch" gap={3}>
-                <Link href="/login">
-                  <Button 
-                    variant="outline" 
+                <Link href="/auth/login">
+                  <Button
+                    variant="outline"
                     fullWidth
                     onClick={() => setIsMenuOpen(false)}
                   >
                     ログイン
                   </Button>
                 </Link>
-                <Link href="/register">
-                  <Button 
-                    variant="primary" 
+                <Link href="/auth/register">
+                  <Button
+                    variant="primary"
                     fullWidth
                     onClick={() => setIsMenuOpen(false)}
                   >

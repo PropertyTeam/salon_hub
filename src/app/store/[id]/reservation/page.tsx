@@ -21,10 +21,10 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Card, CardContent } from '@/components/ui/Card'
 import { MainLayout } from '@/components/layouts/MainLayout'
-import { 
+import {
   getMockStoreById,
   getMockMenusByStoreId
-} from '@/data/mockData'
+} from '../../../../../data/mockData'
 
 export default function ReservationPage() {
   const params = useParams()

@@ -192,14 +192,16 @@ export function MainFooter() {
                 >
                   サロン検索
                 </Link>
-                <Link 
+                <Link
+                  as={NextLink}
+                  href="/my/reservations"
                   bg="transparent"
-                  color="white" 
+                  color="white"
                   fontWeight="500"
                   px={3}
                   py={2}
                   borderRadius="8px"
-                  _hover={{ 
+                  _hover={{
                     bg: 'rgba(255, 255, 255, 0.95)',
                     color: 'slate.900',
                     transform: 'translateX(4px)'
@@ -208,30 +210,34 @@ export function MainFooter() {
                 >
                   予約管理
                 </Link>
-                <Link 
+                <Link
+                  as={NextLink}
+                  href="/coupons"
                   bg="transparent"
-                  color="white" 
+                  color="white"
                   fontWeight="500"
                   px={3}
                   py={2}
                   borderRadius="8px"
-                  _hover={{ 
+                  _hover={{
                     bg: 'rgba(255, 255, 255, 0.95)',
                     color: 'slate.900',
                     transform: 'translateX(4px)'
                   }}
                   transition="all 0.3s ease"
                 >
-                  キャンセル・変更
+                  クーポン
                 </Link>
-                <Link 
+                <Link
+                  as={NextLink}
+                  href="/my/favorites"
                   bg="transparent"
-                  color="white" 
+                  color="white"
                   fontWeight="500"
                   px={3}
                   py={2}
                   borderRadius="8px"
-                  _hover={{ 
+                  _hover={{
                     bg: 'rgba(255, 255, 255, 0.95)',
                     color: 'slate.900',
                     transform: 'translateX(4px)'
@@ -336,56 +342,64 @@ export function MainFooter() {
                 サポート
               </Text>
               <VStack align="start" gap={3}>
-                <Link 
+                <Link
+                  as={NextLink}
+                  href="/help"
                   bg="transparent"
-                  color="white" 
+                  color="white"
                   fontWeight="500"
                   px={3}
                   py={2}
                   borderRadius="8px"
-                  _hover={{ 
+                  _hover={{
                     bg: 'rgba(255, 255, 255, 0.95)',
                     color: 'slate.900'
                   }}
                 >
                   よくある質問
                 </Link>
-                <Link 
+                <Link
+                  as={NextLink}
+                  href="/contact"
                   bg="transparent"
-                  color="white" 
+                  color="white"
                   fontWeight="500"
                   px={3}
                   py={2}
                   borderRadius="8px"
-                  _hover={{ 
+                  _hover={{
                     bg: 'rgba(255, 255, 255, 0.95)',
                     color: 'slate.900'
                   }}
                 >
                   お問い合わせ
                 </Link>
-                <Link 
+                <Link
+                  as={NextLink}
+                  href="/terms"
                   bg="transparent"
-                  color="white" 
+                  color="white"
                   fontWeight="500"
                   px={3}
                   py={2}
                   borderRadius="8px"
-                  _hover={{ 
+                  _hover={{
                     bg: 'rgba(255, 255, 255, 0.95)',
                     color: 'slate.900'
                   }}
                 >
                   利用規約
                 </Link>
-                <Link 
+                <Link
+                  as={NextLink}
+                  href="/privacy"
                   bg="transparent"
-                  color="white" 
+                  color="white"
                   fontWeight="500"
                   px={3}
                   py={2}
                   borderRadius="8px"
-                  _hover={{ 
+                  _hover={{
                     bg: 'rgba(255, 255, 255, 0.95)',
                     color: 'slate.900'
                   }}

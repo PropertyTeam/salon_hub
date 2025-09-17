@@ -20,12 +20,12 @@ import {
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 import { MainLayout } from '@/components/layouts/MainLayout'
-import { 
+import {
   getMockStoreById,
   getMockMenusByStoreId,
   getMockStaffByStoreId,
   getMockReviewsByStoreId
-} from '@/data/mockData'
+} from '../../../../data/mockData'
 
 export default function StoreDetailPage() {
   const params = useParams()
@@ -122,13 +122,14 @@ export default function StoreDetailPage() {
         <VStack gap={8} align="stretch">
           
           {/* Cosmic Breadcrumb */}
-          <HStack 
-            bg="rgba(255, 255, 255, 0.1)"
-            backdropFilter="blur(20px)"
+          <HStack
+            bg="white"
             px={6}
             py={4}
             borderRadius="20px"
-            border="1px solid rgba(255, 255, 255, 0.2)"
+            border="2px solid"
+            borderColor="gray.100"
+            shadow="0 4px 12px rgba(0, 0, 0, 0.08)"
             color="slate.600" 
             fontSize="sm" 
             fontWeight="600"
@@ -169,49 +170,38 @@ export default function StoreDetailPage() {
             </Text>
           </HStack>
 
-          {/* Cosmic Store Header */}
+          {/* Store Header */}
           <Box
             position="relative"
-            bg="rgba(255, 255, 255, 0.05)"
-            backdropFilter="blur(30px)"
+            bg="white"
             borderRadius="24px"
-            border="1px solid rgba(255, 255, 255, 0.1)"
+            border="2px solid"
+            borderColor="gray.100"
             p={8}
             overflow="hidden"
-            _before={{
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              bg: `
-                radial-gradient(circle at 20% 30%, rgba(147, 51, 234, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.06) 0%, transparent 50%)
-              `,
-              zIndex: -1
-            }}
+            shadow="0 10px 40px rgba(0, 0, 0, 0.08)"
           >
             <Grid templateColumns={{ base: '1fr', lg: '2fr 1fr' }} gap={8}>
             
               {/* Cosmic Images */}
               <GridItem>
                 <VStack gap={4}>
-                  {/* Cosmic Main Image */}
+                  {/* Main Image */}
                   <Box
                     w="full"
                     h="400px"
                     borderRadius="20px"
                     overflow="hidden"
                     position="relative"
-                    bg="rgba(255, 255, 255, 0.1)"
-                    shadow="0 20px 40px rgba(0, 0, 0, 0.1)"
-                    border="1px solid rgba(255, 255, 255, 0.2)"
+                    bg="gray.50"
+                    shadow="0 8px 25px rgba(0, 0, 0, 0.1)"
+                    border="2px solid"
+                    borderColor="gray.200"
                     _hover={{
-                      transform: 'translateY(-4px)',
-                      shadow: '0 25px 50px rgba(0, 0, 0, 0.15)'
+                      transform: 'translateY(-2px)',
+                      shadow: '0 12px 30px rgba(0, 0, 0, 0.15)'
                     }}
-                    transition="all 0.4s ease"
+                    transition="all 0.3s ease"
                   >
                     {store.images && store.images.length > 0 ? (
                       <Image
@@ -222,24 +212,27 @@ export default function StoreDetailPage() {
                         objectFit="cover"
                       />
                     ) : (
-                      <Center h="full" bg="linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(147, 51, 234, 0.3), rgba(6, 182, 212, 0.4))">
+                      <Center h="full" bg="linear-gradient(135deg, #f1f5f9, #e2e8f0)">
                         <VStack gap={4}>
                           <Box
                             fontSize="8xl"
                             animation="float 6s ease-in-out infinite"
-                            filter="drop-shadow(0 0 20px rgba(255, 255, 255, 0.3))"
+                            filter="drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1))"
+                            color="gray.600"
                           >
                             {getCategoryIcon(store.category)}
                           </Box>
-                          <Badge 
-                            bg="transparent"
-                            color="slate.700"
-                            fontSize="lg" 
-                            px={6} 
+                          <Badge
+                            bg="white"
+                            color="gray.700"
+                            fontSize="lg"
+                            px={6}
                             py={3}
                             borderRadius="16px"
                             fontWeight="700"
-                            shadow="0 8px 16px rgba(255, 255, 255, 0.2)"
+                            shadow="0 4px 12px rgba(0, 0, 0, 0.1)"
+                            border="2px solid"
+                            borderColor="gray.200"
                           >
                             {getCategoryLabel(store.category)}
                           </Badge>
@@ -307,52 +300,44 @@ export default function StoreDetailPage() {
                 {/* Title and Rating */}
                 <VStack align="stretch" gap={4}>
                   <VStack align="start" gap={3}>
-                    <Badge 
-                      bg="linear-gradient(135deg, cyan.400, sky.500)" 
+                    <Badge
+                      bg="blue.500"
                       color="white"
                       fontSize="sm"
                       px="4"
                       py="2"
                       borderRadius="16px"
                       fontWeight="600"
-                      shadow="0 4px 12px rgba(6, 182, 212, 0.3)"
+                      shadow="0 4px 12px rgba(59, 130, 246, 0.4)"
                     >
                       {getCategoryLabel(store.category)}
                     </Badge>
-                    <Box
-                      bg="linear-gradient(135deg, slate.800, slate.600)"
-                      bgClip="text"
-                      color="transparent"
+                    <Heading
+                      color="gray.800"
                       fontWeight="800"
                       fontSize="3xl"
                       lineHeight="1.1"
                       letterSpacing="-0.02em"
                     >
                       {store.name}
-                    </Box>
+                    </Heading>
                   </VStack>
 
                   <HStack gap={6}>
                     <Box
-                      bg="transparent"
-                      backdropFilter="blur(10px)"
+                      bg="white"
                       px="5"
                       py="3"
                       borderRadius="20px"
-                      shadow="0 8px 20px rgba(0, 0, 0, 0.1)"
-                      border="1px solid rgba(255, 255, 255, 0.2)"
+                      shadow="0 4px 12px rgba(0, 0, 0, 0.1)"
+                      border="2px solid"
+                      borderColor="orange.100"
                     >
                       <HStack gap={2}>
-                        <Box
-                          bg="linear-gradient(135deg, orange.400, pink.400)"
-                          bgClip="text"
-                          color="transparent"
-                          fontWeight="800"
-                          fontSize="xl"
-                        >
-                          {store.rating?.toFixed(1) || '4.0'}
-                        </Box>
-                        <Text color="slate.600" fontSize="sm" fontWeight="600">
+                        <Text color="orange.500" fontSize="xl" fontWeight="800">
+                          ★ {store.rating?.toFixed(1) || '4.0'}
+                        </Text>
+                        <Text color="gray.600" fontSize="sm" fontWeight="600">
                           ({store.reviewCount || 0}件)
                         </Text>
                       </HStack>
@@ -361,15 +346,16 @@ export default function StoreDetailPage() {
                 </VStack>
 
                 {/* Description */}
-                <Text 
-                  color="slate.700" 
-                  lineHeight="1.8" 
+                <Text
+                  color="gray.700"
+                  lineHeight="1.8"
                   fontSize="md"
                   fontWeight="500"
-                  bg="rgba(255, 255, 255, 0.6)"
+                  bg="gray.50"
                   p={4}
                   borderRadius="16px"
-                  border="1px solid rgba(6, 182, 212, 0.1)"
+                  border="2px solid"
+                  borderColor="gray.100"
                 >
                   {store.description}
                 </Text>
@@ -377,19 +363,20 @@ export default function StoreDetailPage() {
                 {/* Tags */}
                 <HStack gap={3} flexWrap="wrap">
                   {store.tags?.map((tag, index) => (
-                    <Badge 
-                      key={index} 
-                      bg="linear-gradient(135deg, cyan.400, sky.500)"
+                    <Badge
+                      key={index}
+                      bg="blue.500"
                       color="white"
                       fontSize="sm"
                       px="4"
                       py="2"
                       borderRadius="14px"
                       fontWeight="600"
-                      shadow="0 4px 12px rgba(6, 182, 212, 0.25)"
+                      shadow="0 4px 12px rgba(59, 130, 246, 0.3)"
                       _hover={{
                         transform: "translateY(-2px)",
-                        shadow: "0 6px 16px rgba(6, 182, 212, 0.35)"
+                        shadow: "0 6px 16px rgba(59, 130, 246, 0.4)",
+                        bg: "blue.600"
                       }}
                       transition="all 0.3s ease"
                     >
@@ -500,86 +487,75 @@ export default function StoreDetailPage() {
                       {menus.map((menu) => (
                         <Box
                           key={menu.id}
-                          bg="rgba(255, 255, 255, 0.1)"
-                          backdropFilter="blur(20px)"
+                          bg="white"
                           borderRadius="20px"
-                          border="1px solid rgba(255, 255, 255, 0.2)"
+                          border="2px solid"
+                          borderColor="gray.100"
+                          shadow="0 4px 15px rgba(0, 0, 0, 0.08)"
                           p={6}
                           position="relative"
                           overflow="hidden"
                           _hover={{
                             transform: 'translateY(-4px)',
-                            shadow: '0 20px 40px rgba(0, 0, 0, 0.1)'
+                            shadow: '0 12px 30px rgba(0, 0, 0, 0.12)',
+                            borderColor: 'blue.200'
                           }}
                           transition="all 0.3s ease"
-                          _before={{
-                            content: '""',
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            bg: 'linear-gradient(135deg, rgba(6, 182, 212, 0.03), rgba(147, 51, 234, 0.03))',
-                            zIndex: -1
-                          }}
                         >
                           <VStack align="stretch" gap={4}>
                             <HStack justify="space-between" align="start">
                               <VStack align="start" gap={2} flex="1">
                                 <HStack gap={2}>
                                   <Text fontSize="lg">✨</Text>
-                                  <Box
-                                    bg="linear-gradient(135deg, cyan.500, purple.500)"
-                                    bgClip="text"
-                                    color="transparent"
+                                  <Text
+                                    color="gray.800"
                                     fontWeight="700"
                                     fontSize="lg"
                                   >
                                     {menu.name}
-                                  </Box>
+                                  </Text>
                                 </HStack>
-                                <Text color="slate.700" fontSize="sm" lineHeight="1.6" fontWeight="500">
+                                <Text color="gray.600" fontSize="sm" lineHeight="1.6" fontWeight="500">
                                   {menu.description}
                                 </Text>
                               </VStack>
                               <VStack align="end" gap={1}>
-                                <Box
-                                  bg="linear-gradient(135deg, orange.400, pink.500)"
-                                  bgClip="text"
-                                  color="transparent"
+                                <Text
+                                  color="blue.600"
                                   fontWeight="800"
                                   fontSize="xl"
                                 >
                                   {formatPrice(menu.price)}
-                                </Box>
+                                </Text>
                                 <Badge
-                                  bg="linear-gradient(135deg, blue.400, purple.400)"
+                                  bg="green.500"
                                   color="white"
                                   fontSize="xs"
                                   px={3}
                                   py={1}
                                   borderRadius="12px"
                                   fontWeight="600"
+                                  shadow="0 2px 6px rgba(34, 197, 94, 0.3)"
                                 >
                                   ⏱️ {formatDuration(menu.duration)}
                                 </Badge>
                               </VStack>
                             </HStack>
                             <HStack justify="space-between" align="center">
-                              <Badge 
-                                bg="linear-gradient(135deg, green.400, teal.400)"
+                              <Badge
+                                bg="purple.500"
                                 color="white"
                                 fontSize="sm"
                                 px={4}
                                 py={2}
                                 borderRadius="14px"
                                 fontWeight="600"
-                                shadow="0 4px 8px rgba(34, 197, 94, 0.2)"
+                                shadow="0 4px 8px rgba(139, 92, 246, 0.3)"
                               >
                                 🏷️ {menu.category}
                               </Badge>
                               <Box
-                                bg="linear-gradient(135deg, cyan.400, sky.500)"
+                                bg="orange.500"
                                 color="white"
                                 px={5}
                                 py={2}
@@ -587,10 +563,11 @@ export default function StoreDetailPage() {
                                 fontWeight="600"
                                 fontSize="sm"
                                 cursor="pointer"
-                                shadow="0 6px 12px rgba(6, 182, 212, 0.3)"
+                                shadow="0 6px 12px rgba(251, 146, 60, 0.3)"
                                 _hover={{
                                   transform: 'translateY(-2px)',
-                                  shadow: '0 8px 16px rgba(6, 182, 212, 0.4)'
+                                  shadow: '0 8px 16px rgba(251, 146, 60, 0.4)',
+                                  bg: 'orange.600'
                                 }}
                                 transition="all 0.3s ease"
                               >
@@ -667,40 +644,27 @@ export default function StoreDetailPage() {
                       {staff.map((member, index) => (
                         <Box
                           key={member.id}
-                          bg="rgba(255, 255, 255, 0.1)"
-                          backdropFilter="blur(20px)"
+                          bg="white"
                           borderRadius="24px"
-                          border="1px solid rgba(255, 255, 255, 0.2)"
+                          border="2px solid"
+                          borderColor="gray.100"
+                          shadow="0 4px 15px rgba(0, 0, 0, 0.08)"
                           p={6}
                           position="relative"
                           overflow="hidden"
                           _hover={{
-                            transform: 'translateY(-6px) rotate(1deg)',
-                            shadow: '0 25px 50px rgba(0, 0, 0, 0.15)'
+                            transform: 'translateY(-4px)',
+                            shadow: '0 12px 30px rgba(0, 0, 0, 0.12)',
+                            borderColor: 'blue.200'
                           }}
-                          transition="all 0.4s ease"
-                          _before={{
-                            content: '""',
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            bg: `linear-gradient(135deg, 
-                              rgba(${index % 3 === 0 ? '6, 182, 212' : index % 3 === 1 ? '147, 51, 234' : '59, 130, 246'}, 0.03), 
-                              rgba(${index % 3 === 0 ? '147, 51, 234' : index % 3 === 1 ? '59, 130, 246' : '6, 182, 212'}, 0.03)
-                            )`,
-                            zIndex: -1
-                          }}
+                          transition="all 0.3s ease"
                         >
                           <VStack gap={5}>
                             <Box
                               w="80px"
                               h="80px"
                               borderRadius="full"
-                              bg={`linear-gradient(135deg, 
-                                ${index % 3 === 0 ? 'cyan.400, sky.500' : index % 3 === 1 ? 'purple.400, pink.500' : 'blue.400, indigo.500'}
-                              )`}
+                              bg="gray.100"
                               backgroundImage={member.avatar}
                               backgroundSize="cover"
                               backgroundPosition="center"
@@ -708,47 +672,29 @@ export default function StoreDetailPage() {
                               alignItems="center"
                               justifyContent="center"
                               shadow="0 12px 24px rgba(0, 0, 0, 0.1)"
-                              border="4px solid rgba(255, 255, 255, 0.2)"
+                              border="3px solid white"
                               position="relative"
-                              _after={{
-                                content: '""',
-                                position: 'absolute',
-                                top: -2,
-                                left: -2,
-                                right: -2,
-                                bottom: -2,
-                                borderRadius: 'full',
-                                border: '2px solid',
-                                borderColor: `${index % 3 === 0 ? 'cyan.400' : index % 3 === 1 ? 'purple.400' : 'blue.400'}`,
-                                animation: 'pulse 2s ease-in-out infinite'
-                              }}
                             >
                               {!member.avatar && (
-                                <Text fontSize="3xl" filter="drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))">
+                                <Text fontSize="3xl" color="gray.600">
                                   {index % 3 === 0 ? '🌟' : index % 3 === 1 ? '✨' : '💫'}
                                 </Text>
                               )}
                             </Box>
                             <VStack gap={3}>
                               <VStack gap={2}>
-                                <Box
-                                  bg={`linear-gradient(135deg, 
-                                    ${index % 3 === 0 ? 'cyan.500, sky.500' : index % 3 === 1 ? 'purple.500, pink.500' : 'blue.500, indigo.500'}
-                                  )`}
-                                  bgClip="text"
-                                  color="transparent"
+                                <Text
+                                  color="gray.800"
                                   fontWeight="800"
                                   fontSize="lg"
                                   letterSpacing="-0.01em"
                                   textAlign="center"
                                 >
                                   {member.name}
-                                </Box>
-                                <Badge 
-                                  bg={`linear-gradient(135deg, 
-                                    ${member.role === 'MANAGER' ? 'purple.400, purple.500' : 
-                                      member.role === 'OWNER' ? 'orange.400, orange.500' : 'blue.400, blue.500'}
-                                  )`}
+                                </Text>
+                                <Badge
+                                  bg={member.role === 'MANAGER' ? 'purple.500' :
+                                      member.role === 'OWNER' ? 'orange.500' : 'blue.500'}
                                   color="white"
                                   fontSize="xs"
                                   px={3}
@@ -757,17 +703,17 @@ export default function StoreDetailPage() {
                                   fontWeight="600"
                                   shadow="0 4px 8px rgba(0, 0, 0, 0.1)"
                                 >
-                                  {member.role === 'MANAGER' ? '👑 マネージャー' : 
+                                  {member.role === 'MANAGER' ? '👑 マネージャー' :
                                    member.role === 'OWNER' ? '🏆 オーナー' : '⭐ スタッフ'}
                                 </Badge>
                               </VStack>
-                              <Text 
-                                color="slate.700" 
+                              <Text
+                                color="gray.600"
                                 fontSize="sm" 
                                 textAlign="center" 
                                 lineHeight="1.6"
                                 fontWeight="500"
-                                bg="rgba(255, 255, 255, 0.5)"
+                                bg="gray.50"
                                 px={3}
                                 py={2}
                                 borderRadius="12px"
@@ -776,16 +722,16 @@ export default function StoreDetailPage() {
                               </Text>
                               <HStack gap={2} flexWrap="wrap" justify="center">
                                 {member.specialties?.map((specialty, specIndex) => (
-                                  <Badge 
-                                    key={specIndex} 
-                                    bg="transparent"
-                                    color="slate.700"
+                                  <Badge
+                                    key={specIndex}
+                                    bg="teal.500"
+                                    color="white"
                                     fontSize="xs"
                                     px={3}
                                     py={1}
                                     borderRadius="10px"
                                     fontWeight="600"
-                                    border="1px solid rgba(6, 182, 212, 0.2)"
+                                    shadow="0 2px 6px rgba(20, 184, 166, 0.3)"
                                   >
                                     #{specialty}
                                   </Badge>

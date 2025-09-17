@@ -13,17 +13,7 @@ import {
   Container
 } from '@chakra-ui/react'
 import { Card, CardContent } from '@/components/ui/Card'
-
-interface Store {
-  id: string
-  name: string
-  description: string
-  rating?: number
-  reviewCount?: number
-  category?: string
-  tags?: string[]
-  images?: string[]
-}
+import { Store } from '@/types'
 
 interface SalonCarouselProps {
   salons: Store[]
@@ -265,13 +255,13 @@ export function SalonCarousel({ salons, title = "おすすめ複数サロン", s
                                 {salon.name}
                               </Text>
                               
-                              <Text 
-                                color="gray.600" 
-                                fontSize="sm" 
+                              <Text
+                                color="gray.600"
+                                fontSize="sm"
                                 lineHeight="1.4"
                                 noOfLines={2}
                               >
-                                {salon.description}
+                                {salon.description || 'サロンの詳細情報'}
                               </Text>
                             </VStack>
                             
