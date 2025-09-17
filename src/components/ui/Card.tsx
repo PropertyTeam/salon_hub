@@ -13,13 +13,30 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ children, variant = 'elevated', hover = true, ...props }, ref) => {
     const getCardStyles = () => {
       const baseStyles = {
-        borderRadius: 'xl',
+        borderRadius: '24px',
         overflow: 'hidden',
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        position: 'relative' as const,
+        _before: {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(14, 165, 233, 0.05), rgba(59, 130, 246, 0.1))',
+          opacity: 0,
+          transition: 'opacity 0.3s ease',
+          zIndex: 0,
+          pointerEvents: 'none'
+        },
         ...(hover && {
           _hover: {
-            transform: 'translateY(-4px)',
-            shadow: '2xl',
+            transform: 'translateY(-8px) scale(1.02)',
+            shadow: '0 25px 50px rgba(6, 182, 212, 0.2), 0 15px 30px rgba(14, 165, 233, 0.15)',
+            _before: {
+              opacity: 1
+            }
           },
         }),
       };
@@ -28,21 +45,34 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         case 'elevated':
           return {
             ...baseStyles,
-            bg: 'bg.default',
-            shadow: 'lg',
+            bg: 'transparent',
+            backdropFilter: 'blur(10px)',
+            shadow: '0 8px 32px rgba(6, 182, 212, 0.12), 0 2px 16px rgba(14, 165, 233, 0.08)',
             border: '1px solid',
-            borderColor: 'transparent',
+            borderColor: 'rgba(6, 182, 212, 0.1)',
+            zIndex: 1,
+            '& > *': {
+              position: 'relative',
+              zIndex: 1
+            }
           };
         case 'outline':
           return {
             ...baseStyles,
-            bg: 'bg.default',
-            border: '1px solid',
-            borderColor: 'border.default',
+            bg: 'rgba(255, 255, 255, 0.8)',
+            backdropFilter: 'blur(8px)',
+            border: '2px solid',
+            borderColor: 'rgba(6, 182, 212, 0.2)',
+            zIndex: 1,
             _hover: {
               ...baseStyles._hover,
-              borderColor: 'primary.200',
+              borderColor: 'rgba(6, 182, 212, 0.4)',
+              bg: 'rgba(255, 255, 255, 0.95)'
             },
+            '& > *': {
+              position: 'relative',
+              zIndex: 1
+            }
           };
         case 'filled':
           return {
