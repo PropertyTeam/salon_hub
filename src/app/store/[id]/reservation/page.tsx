@@ -89,388 +89,204 @@ export default function ReservationPage() {
       <Container maxW="4xl" py={8}>
         <VStack gap={8} align="stretch">
           
-          {/* Cosmic Breadcrumb */}
-          <HStack 
-            bg="rgba(255, 255, 255, 0.1)"
-            backdropFilter="blur(20px)"
-            px={6}
-            py={4}
-            borderRadius="20px"
-            border="1px solid rgba(255, 255, 255, 0.2)"
-            color="slate.600" 
-            fontSize="sm" 
-            fontWeight="600"
-            position="relative"
-            overflow="hidden"
-            _before={{
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              bg: 'linear-gradient(90deg, rgba(6, 182, 212, 0.1), rgba(147, 51, 234, 0.1))',
-              zIndex: -1
-            }}
+          {/* Breadcrumb */}
+          <HStack
+            color="gray.600"
+            fontSize="sm"
+            fontWeight="medium"
           >
             <Link href="/stores">
-              <Text _hover={{ color: 'cyan.500', textDecoration: 'underline', transform: 'translateX(-2px)' }}
-                transition="all 0.3s ease"
+              <Text _hover={{ color: "primary.600" }}
+                transition="color 0.2s"
                 cursor="pointer"
               >
                 サロン一覧
               </Text>
             </Link>
-            <Text color="slate.600" fontSize="lg">›</Text>
+            <Text color="gray.400">›</Text>
             <Link href={`/store/${storeId}`}>
-              <Text _hover={{ color: 'cyan.500', textDecoration: 'underline', transform: 'translateX(-2px)' }}
-                transition="all 0.3s ease"
+              <Text _hover={{ color: "primary.600" }}
+                transition="color 0.2s"
                 cursor="pointer"
               >
                 {store.name}
               </Text>
             </Link>
-            <Text color="slate.600" fontSize="lg">›</Text>
-            <Text 
-              color="slate.700" 
-              fontWeight="700"
-              bg="linear-gradient(135deg, slate.600, slate.800)"
-              bgClip="text"
-            >
+            <Text color="gray.400">›</Text>
+            <Text color="gray.900" fontWeight="semibold">
               予約
             </Text>
           </HStack>
 
-          {/* Cosmic Header */}
-          <VStack 
-            gap={6} 
-            textAlign="center"
-            position="relative"
-          >
-            <Box
-              position="relative"
-              _before={{
-                content: '""',
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                w: '200px',
-                h: '200px',
-                bg: 'radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%)',
-                borderRadius: '50%',
-                zIndex: -1,
-                animation: 'pulse 3s ease-in-out infinite'
-              }}
-            >
-              <VStack gap={4}>
-                <Box
-                  w={16}
-                  h={16}
-                  bg="linear-gradient(135deg, cyan.400, purple.500)"
-                  borderRadius="24px"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  shadow="0 12px 24px rgba(6, 182, 212, 0.3)"
-                  animation="float 4s ease-in-out infinite"
-                >
-                  <Box w={12} h={12} bg="white" borderRadius="50%" opacity={0.9}></Box>
-                </Box>
-                <Box
-                  bg="linear-gradient(135deg, cyan.500, purple.500, pink.500)"
-                  bgClip="text"
-                  color="transparent"
-                  fontWeight="800"
-                  fontSize="4xl"
-                  letterSpacing="-0.02em"
-                  textAlign="center"
-                >
-                  予約フォーム
-                </Box>
-                <HStack gap={3} align="center">
-                  <Box
-                    w={8}
-                    h={8}
-                    bg="linear-gradient(135deg, cyan.400, sky.500)"
-                    borderRadius="12px"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    shadow="0 4px 8px rgba(6, 182, 212, 0.3)"
-                  >
-                    <Box w={4} h={4} bg="white" borderRadius="4px" opacity={0.9}></Box>
-                  </Box>
-                  <Text 
-                    color="slate.700" 
-                    fontSize="xl" 
-                    fontWeight="700"
-                    bg="linear-gradient(135deg, slate.600, slate.800)"
-                    bgClip="text"
-                  >
-                    {store.name}
-                  </Text>
-                </HStack>
-              </VStack>
-            </Box>
+          {/* Header */}
+          <VStack gap={4} textAlign="center">
+            <Heading size="xl" color="gray.900" fontWeight="bold">
+              予約フォーム
+            </Heading>
+            <Text color="gray.600" fontSize="lg">
+              {store.name}
+            </Text>
           </VStack>
 
-          {/* Cosmic Form */}
+          {/* Form */}
           <Box
-            bg="rgba(255, 255, 255, 0.05)"
-            backdropFilter="blur(30px)"
-            borderRadius="24px"
-            border="1px solid rgba(255, 255, 255, 0.15)"
-            p={10}
-            position="relative"
-            overflow="hidden"
-            shadow="0 25px 50px rgba(0, 0, 0, 0.1)"
-            _before={{
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              bg: `
-                radial-gradient(circle at 10% 20%, rgba(147, 51, 234, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 50%)
-              `,
-              zIndex: -1
-            }}
+            bg="white"
+            borderRadius="xl"
+            p={{ base: 6, md: 8 }}
+            shadow="sm"
+            border="1px solid"
+            borderColor="gray.200"
           >
               <VStack gap={6} align="stretch">
                 
-                {/* Cosmic Menu Selection */}
+                {/* Menu Selection */}
                 <VStack gap={6} align="stretch">
-                  <HStack gap={4} align="center">
-                    <Box
-                      w={10}
-                      h={10}
-                      bg="linear-gradient(135deg, purple.400, pink.400)"
-                      borderRadius="16px"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      shadow="0 6px 12px rgba(147, 51, 234, 0.3)"
-                      animation="pulse 2s ease-in-out infinite"
-                    >
-                      <Box w={8} h={8} bg="white" borderRadius="50%" opacity={0.9}></Box>
-                    </Box>
-                    <Box
-                      bg="linear-gradient(135deg, purple.500, pink.500)"
-                      bgClip="text"
-                      color="transparent"
-                      fontWeight="800"
-                      fontSize="xl"
-                      letterSpacing="-0.02em"
-                    >
-                      メニュー選択
-                    </Box>
-                  </HStack>
+                  <Heading size="lg" color="gray.900" fontWeight="semibold">
+                    メニュー選択
+                  </Heading>
                   
                   {menus.length === 0 ? (
                     <Center py={8}>
                       <Text color="gray.500">メニューが登録されていません</Text>
                     </Center>
                   ) : (
-                    <SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
+                    <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
                       {menus.map((menu, index) => (
-                        <Box 
+                        <Card
                           key={menu.id}
-                          bg={selectedMenu === menu.id ? 'rgba(6, 182, 212, 0.15)' : 'rgba(255, 255, 255, 0.1)'}
-                          backdropFilter="blur(20px)"
-                          borderRadius="20px"
-                          border={selectedMenu === menu.id ? '2px solid' : '1px solid rgba(255, 255, 255, 0.2)'}
-                          borderColor={selectedMenu === menu.id ? 'cyan.400' : 'transparent'}
-                          p={6}
+                          variant={selectedMenu === menu.id ? "outline" : "outline"}
+                          bg={selectedMenu === menu.id ? 'primary.50' : 'white'}
+                          borderColor={selectedMenu === menu.id ? 'primary.500' : 'gray.200'}
                           cursor="pointer"
                           onClick={() => setSelectedMenu(menu.id)}
-                          position="relative"
-                          overflow="hidden"
                           _hover={{
-                            transform: 'translateY(-3px)',
-                            shadow: '0 12px 24px rgba(6, 182, 212, 0.2)',
-                            borderColor: 'cyan.300'
+                            borderColor: selectedMenu === menu.id ? 'primary.600' : 'primary.300',
+                            shadow: 'md'
                           }}
-                          transition="all 0.3s ease"
-                          _before={{
-                            content: '""',
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            bg: selectedMenu === menu.id ? 
-                              'linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(147, 51, 234, 0.1))' :
-                              'linear-gradient(135deg, rgba(6, 182, 212, 0.03), rgba(147, 51, 234, 0.03))',
-                            zIndex: -1
-                          }}
+                          transition="all 0.2s ease"
                         >
-                          <VStack align="stretch" gap={4}>
-                            <HStack justify="space-between" align="start">
-                              <VStack align="start" gap={2} flex="1">
-                                <HStack gap={2}>
-                                  <Box 
-                                    w={6} 
-                                    h={6} 
-                                    bg={selectedMenu === menu.id ? "cyan.400" : "slate.300"}
-                                    borderRadius="50%" 
-                                    opacity={0.8}
-                                  ></Box>
-                                  <Box
-                                    bg={selectedMenu === menu.id ? 'linear-gradient(135deg, cyan.500, purple.500)' : 'linear-gradient(135deg, slate.600, slate.800)'}
-                                    bgClip="text"
-                                    color="transparent"
-                                    fontWeight="700"
-                                    fontSize="md"
-                                  >
+                          <CardContent p={4}>
+                            <VStack align="stretch" gap={3}>
+                              <HStack justify="space-between" align="start">
+                                <VStack align="start" gap={2} flex="1">
+                                  <Heading size="sm" color="gray.900" fontWeight="semibold">
                                     {menu.name}
-                                  </Box>
-                                </HStack>
-                                <Text color="slate.700" fontSize="sm" lineHeight="1.5" fontWeight="500">
-                                  {menu.description}
-                                </Text>
-                              </VStack>
-                              <VStack align="end" gap={1}>
-                                <Box
-                                  bg="linear-gradient(135deg, orange.400, pink.500)"
-                                  bgClip="text"
-                                  color="transparent"
-                                  fontWeight="800"
-                                  fontSize="lg"
-                                >
-                                  {formatPrice(menu.price)}
-                                </Box>
+                                  </Heading>
+                                  <Text color="gray.600" fontSize="sm" lineHeight="1.5">
+                                    {menu.description}
+                                  </Text>
+                                </VStack>
+                                <VStack align="end" gap={1}>
+                                  <Text color="gray.900" fontWeight="bold" fontSize="lg">
+                                    {formatPrice(menu.price)}
+                                  </Text>
+                                  <Badge
+                                    bg="gray.100"
+                                    color="gray.700"
+                                    fontSize="xs"
+                                    px={2}
+                                    py={1}
+                                    borderRadius="md"
+                                    fontWeight="medium"
+                                  >
+                                    {formatDuration(menu.duration)}
+                                  </Badge>
+                                </VStack>
+                              </HStack>
+                              <HStack justify="space-between" align="center">
                                 <Badge
-                                  bg="linear-gradient(135deg, blue.400, purple.400)"
-                                  color="white"
+                                  bg="primary.50"
+                                  color="primary.700"
                                   fontSize="xs"
                                   px={3}
                                   py={1}
-                                  borderRadius="12px"
-                                  fontWeight="600"
+                                  borderRadius="md"
+                                  fontWeight="medium"
                                 >
-                                  {formatDuration(menu.duration)}
+                                  {menu.category}
                                 </Badge>
-                              </VStack>
-                            </HStack>
-                            <HStack justify="space-between" align="center">
-                              <Badge 
-                                bg="linear-gradient(135deg, green.400, teal.400)"
-                                color="white"
-                                fontSize="sm"
-                                px={4}
-                                py={2}
-                                borderRadius="14px"
-                                fontWeight="600"
-                                shadow="0 4px 8px rgba(34, 197, 94, 0.2)"
-                              >
-                                {menu.category}
-                              </Badge>
-                              {selectedMenu === menu.id && (
-                                <Box
-                                  bg="linear-gradient(135deg, cyan.400, purple.500)"
-                                  color="white"
-                                  px={4}
-                                  py={2}
-                                  borderRadius="14px"
-                                  fontSize="sm"
-                                  fontWeight="600"
-                                  shadow="0 0 20px rgba(6, 182, 212, 0.4)"
-                                  animation="pulse 2s ease-in-out infinite"
-                                >
-                                  選択中
-                                </Box>
-                              )}
-                            </HStack>
-                          </VStack>
-                        </Box>
+                                {selectedMenu === menu.id && (
+                                  <Badge
+                                    bg="primary.500"
+                                    color="white"
+                                    fontSize="xs"
+                                    px={3}
+                                    py={1}
+                                    borderRadius="md"
+                                    fontWeight="medium"
+                                  >
+                                    選択中
+                                  </Badge>
+                                )}
+                              </HStack>
+                            </VStack>
+                          </CardContent>
+                        </Card>
                       ))}
                     </SimpleGrid>
                   )}
                 </VStack>
 
-                {/* Cosmic Date and Time */}
+                {/* Date and Time */}
                 <VStack gap={6} align="stretch">
-                  <HStack gap={4} align="center">
-                    <Box
-                      w={10}
-                      h={10}
-                      bg="linear-gradient(135deg, orange.400, pink.400)"
-                      borderRadius="16px"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      shadow="0 6px 12px rgba(251, 146, 60, 0.3)"
-                      animation="pulse 2.5s ease-in-out infinite"
-                    >
-                      <Text fontSize="xl">📅</Text>
-                    </Box>
-                    <Box
-                      bg="linear-gradient(135deg, orange.500, pink.500)"
-                      bgClip="text"
-                      color="transparent"
-                      fontWeight="800"
-                      fontSize="xl"
-                      letterSpacing="-0.02em"
-                    >
-                      日時選択
-                    </Box>
-                  </HStack>
+                  <Heading size="lg" color="gray.900" fontWeight="semibold">
+                    日時選択
+                  </Heading>
                   
                   <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={6}>
                     <GridItem>
                       <VStack gap={3} align="start">
-                        <Text fontSize="md" fontWeight="700" color="slate.800" bg="transparent" px={3} py={2} borderRadius="8px">
+                        <Text fontSize="sm" fontWeight="medium" color="gray.700">
                           予約日
                         </Text>
-                        <Box 
-                          bg="transparent"
-                          backdropFilter="blur(10px)"
-                          borderRadius="16px"
-                          border="2px solid rgba(6, 182, 212, 0.2)"
-                          _hover={{ borderColor: 'cyan.400' }}
-                          _focusWithin={{ borderColor: 'cyan.500', shadow: '0 0 20px rgba(6, 182, 212, 0.3)' }}
-                          transition="all 0.3s ease"
-                        >
-                          <Input
-                            type="date"
-                            value={selectedDate}
-                            onChange={(e) => setSelectedDate(e.target.value)}
-                            variant="flushed"
-                          />
-                        </Box>
+                        <Input
+                          type="date"
+                          value={selectedDate}
+                          onChange={(e) => setSelectedDate(e.target.value)}
+                          bg="gray.50"
+                          border="1px solid"
+                          borderColor="gray.200"
+                          borderRadius="lg"
+                          _hover={{ borderColor: "gray.300" }}
+                          _focus={{
+                            borderColor: "primary.500",
+                            boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
+                            bg: "white"
+                          }}
+                        />
                       </VStack>
                     </GridItem>
                     
                     <GridItem>
                       <VStack gap={3} align="start">
-                        <Text fontSize="md" fontWeight="700" color="slate.800" bg="transparent" px={3} py={2} borderRadius="8px">
+                        <Text fontSize="sm" fontWeight="medium" color="gray.700">
                           予約時間
                         </Text>
-                        <Box 
-                          bg="transparent"
-                          backdropFilter="blur(10px)"
-                          borderRadius="16px"
-                          border="2px solid rgba(6, 182, 212, 0.2)"
-                          _hover={{ borderColor: 'cyan.400' }}
-                          _focusWithin={{ borderColor: 'cyan.500', shadow: '0 0 20px rgba(6, 182, 212, 0.3)' }}
-                          transition="all 0.3s ease"
-                        >
+                        <Box position="relative">
                           <select
                             value={selectedTime}
                             onChange={(e) => setSelectedTime(e.target.value)}
                             style={{
                               width: '100%',
                               height: '48px',
-                              padding: '0 16px',
-                              background: 'transparent',
-                              border: 'none',
+                              padding: '12px 16px',
+                              backgroundColor: '#f9fafb',
+                              border: '1px solid #e5e7eb',
+                              borderRadius: '8px',
+                              fontSize: '16px',
+                              color: '#374151',
                               outline: 'none',
-                              fontWeight: '600',
-                              color: '#475569',
                               cursor: 'pointer'
+                            }}
+                            onFocus={(e) => {
+                              e.target.style.borderColor = '#3b82f6';
+                              e.target.style.backgroundColor = 'white';
+                              e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                            }}
+                            onBlur={(e) => {
+                              e.target.style.borderColor = '#e5e7eb';
+                              e.target.style.backgroundColor = '#f9fafb';
+                              e.target.style.boxShadow = 'none';
                             }}
                           >
                             <option value="">時間を選択</option>
@@ -492,202 +308,140 @@ export default function ReservationPage() {
                   </Grid>
                 </VStack>
 
-                {/* Cosmic Customer Information */}
+                {/* Customer Information */}
                 <VStack gap={6} align="stretch">
-                  <HStack gap={4} align="center">
-                    <Box
-                      w={10}
-                      h={10}
-                      bg="linear-gradient(135deg, blue.400, indigo.500)"
-                      borderRadius="16px"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      shadow="0 6px 12px rgba(59, 130, 246, 0.3)"
-                      animation="pulse 3s ease-in-out infinite"
-                    >
-                      <Text fontSize="xl">👤</Text>
-                    </Box>
-                    <Box
-                      bg="linear-gradient(135deg, blue.500, indigo.500)"
-                      bgClip="text"
-                      color="transparent"
-                      fontWeight="800"
-                      fontSize="xl"
-                      letterSpacing="-0.02em"
-                    >
-                      お客様情報
-                    </Box>
-                  </HStack>
+                  <Heading size="lg" color="gray.900" fontWeight="semibold">
+                    お客様情報
+                  </Heading>
                   
                   <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={4}>
                     <GridItem>
                       <VStack gap={3} align="start">
-                        <Text fontSize="sm" fontWeight="700" color="slate.800" bg="transparent" px={3} py={2} borderRadius="8px">
+                        <Text fontSize="sm" fontWeight="medium" color="gray.700">
                           お名前 *
                         </Text>
-                        <Box 
-                          bg="transparent"
-                          backdropFilter="blur(10px)"
-                          borderRadius="16px"
-                          border="2px solid rgba(6, 182, 212, 0.2)"
-                          _hover={{ borderColor: 'cyan.400' }}
-                          _focusWithin={{ borderColor: 'cyan.500', shadow: '0 0 20px rgba(6, 182, 212, 0.3)' }}
-                          transition="all 0.3s ease"
-                        >
-                          <Input
-                            placeholder="山田 太郎"
-                            value={customerName}
-                            onChange={(e) => setCustomerName(e.target.value)}
-                            variant="flushed"
-                          />
-                        </Box>
+                        <Input
+                          placeholder="山田 太郎"
+                          value={customerName}
+                          onChange={(e) => setCustomerName(e.target.value)}
+                          bg="gray.50"
+                          border="1px solid"
+                          borderColor="gray.200"
+                          borderRadius="lg"
+                          _hover={{ borderColor: "gray.300" }}
+                          _focus={{
+                            borderColor: "primary.500",
+                            boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
+                            bg: "white"
+                          }}
+                        />
                       </VStack>
                     </GridItem>
                     
                     <GridItem>
                       <VStack gap={3} align="start">
-                        <Text fontSize="sm" fontWeight="700" color="slate.800" bg="transparent" px={3} py={2} borderRadius="8px">
+                        <Text fontSize="sm" fontWeight="medium" color="gray.700">
                           電話番号 *
                         </Text>
-                        <Box 
-                          bg="transparent"
-                          backdropFilter="blur(10px)"
-                          borderRadius="16px"
-                          border="2px solid rgba(6, 182, 212, 0.2)"
-                          _hover={{ borderColor: 'cyan.400' }}
-                          _focusWithin={{ borderColor: 'cyan.500', shadow: '0 0 20px rgba(6, 182, 212, 0.3)' }}
-                          transition="all 0.3s ease"
-                        >
-                          <Input
-                            placeholder="090-1234-5678"
-                            value={customerPhone}
-                            onChange={(e) => setCustomerPhone(e.target.value)}
-                            variant="flushed"
-                          />
-                        </Box>
+                        <Input
+                          placeholder="090-1234-5678"
+                          value={customerPhone}
+                          onChange={(e) => setCustomerPhone(e.target.value)}
+                          bg="gray.50"
+                          border="1px solid"
+                          borderColor="gray.200"
+                          borderRadius="lg"
+                          _hover={{ borderColor: "gray.300" }}
+                          _focus={{
+                            borderColor: "primary.500",
+                            boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
+                            bg: "white"
+                          }}
+                        />
                       </VStack>
                     </GridItem>
                     
                     <GridItem colSpan={{ base: 1, md: 2 }}>
                       <VStack gap={3} align="start">
-                        <Text fontSize="sm" fontWeight="700" color="slate.800" bg="transparent" px={3} py={2} borderRadius="8px">
+                        <Text fontSize="sm" fontWeight="medium" color="gray.700">
                           メールアドレス *
                         </Text>
-                        <Box 
-                          bg="transparent"
-                          backdropFilter="blur(10px)"
-                          borderRadius="16px"
-                          border="2px solid rgba(6, 182, 212, 0.2)"
-                          _hover={{ borderColor: 'cyan.400' }}
-                          _focusWithin={{ borderColor: 'cyan.500', shadow: '0 0 20px rgba(6, 182, 212, 0.3)' }}
-                          transition="all 0.3s ease"
-                        >
-                          <Input
-                            type="email"
-                            placeholder="example@email.com"
-                            value={customerEmail}
-                            onChange={(e) => setCustomerEmail(e.target.value)}
-                            variant="flushed"
-                          />
-                        </Box>
+                        <Input
+                          type="email"
+                          placeholder="example@email.com"
+                          value={customerEmail}
+                          onChange={(e) => setCustomerEmail(e.target.value)}
+                          bg="gray.50"
+                          border="1px solid"
+                          borderColor="gray.200"
+                          borderRadius="lg"
+                          _hover={{ borderColor: "gray.300" }}
+                          _focus={{
+                            borderColor: "primary.500",
+                            boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
+                            bg: "white"
+                          }}
+                        />
                       </VStack>
                     </GridItem>
                     
                     <GridItem colSpan={{ base: 1, md: 2 }}>
                       <VStack gap={3} align="start">
-                        <Text fontSize="sm" fontWeight="700" color="slate.800" bg="transparent" px={3} py={2} borderRadius="8px">
+                        <Text fontSize="sm" fontWeight="medium" color="gray.700">
                           ご要望・備考
                         </Text>
-                        <Box 
-                          bg="transparent"
-                          backdropFilter="blur(10px)"
-                          borderRadius="16px"
-                          border="2px solid rgba(6, 182, 212, 0.2)"
-                          _hover={{ borderColor: 'cyan.400' }}
-                          _focusWithin={{ borderColor: 'cyan.500', shadow: '0 0 20px rgba(6, 182, 212, 0.3)' }}
-                          transition="all 0.3s ease"
-                        >
-                          <Textarea
-                            placeholder="何かご要望やご質問がございましたらお書きください"
-                            value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
-                            rows={4}
-                            variant="flushed"
-                            resize="none"
-                          />
-                        </Box>
+                        <Textarea
+                          placeholder="何かご要望やご質問がございましたらお書きください"
+                          value={notes}
+                          onChange={(e) => setNotes(e.target.value)}
+                          rows={4}
+                          resize="none"
+                          bg="gray.50"
+                          border="1px solid"
+                          borderColor="gray.200"
+                          borderRadius="lg"
+                          _hover={{ borderColor: "gray.300" }}
+                          _focus={{
+                            borderColor: "primary.500",
+                            boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
+                            bg: "white"
+                          }}
+                        />
                       </VStack>
                     </GridItem>
                   </Grid>
                 </VStack>
 
-                {/* Cosmic Selected Info Summary */}
+                {/* Selected Info Summary */}
                 {selectedMenuData && (
                   <Box
-                    bg="linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(147, 51, 234, 0.1))"
-                    backdropFilter="blur(20px)"
-                    borderRadius="20px"
-                    border="2px solid"
-                    borderColor="cyan.300"
+                    bg="primary.50"
+                    borderRadius="lg"
+                    border="1px solid"
+                    borderColor="primary.200"
                     p={6}
-                    position="relative"
-                    overflow="hidden"
-                    shadow="0 12px 24px rgba(6, 182, 212, 0.2)"
-                    _before={{
-                      content: '""',
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      bg: 'linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(147, 51, 234, 0.05))',
-                      zIndex: -1
-                    }}
                   >
                     <VStack gap={4} align="stretch">
-                      <HStack gap={3} justify="center">
-                        <Box
-                          w={8}
-                          h={8}
-                          bg="linear-gradient(135deg, cyan.400, purple.500)"
-                          borderRadius="12px"
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="center"
-                          shadow="0 4px 8px rgba(6, 182, 212, 0.3)"
-                          animation="pulse 2s ease-in-out infinite"
-                        >
-                          <Text fontSize="lg" color="white">✨</Text>
-                        </Box>
-                        <Box
-                          bg="linear-gradient(135deg, cyan.500, purple.500)"
-                          bgClip="text"
-                          color="transparent"
-                          fontWeight="800"
-                          fontSize="lg"
-                          letterSpacing="-0.02em"
-                        >
-                          予約内容
-                        </Box>
-                      </HStack>
+                      <Heading size="md" color="gray.900" fontWeight="semibold" textAlign="center">
+                        予約内容確認
+                      </Heading>
                       <VStack gap={3} align="stretch">
-                        <HStack justify="space-between" bg="transparent" p={3} borderRadius="12px">
-                          <Text fontSize="sm" fontWeight="700" color="slate.600">🎆 メニュー:</Text>
-                          <Text fontSize="sm" fontWeight="600" color="slate.800">{selectedMenuData.name}</Text>
+                        <HStack justify="space-between" p={3} bg="white" borderRadius="md">
+                          <Text fontSize="sm" fontWeight="medium" color="gray.600">メニュー</Text>
+                          <Text fontSize="sm" fontWeight="semibold" color="gray.900">{selectedMenuData.name}</Text>
                         </HStack>
-                        <HStack justify="space-between" bg="transparent" p={3} borderRadius="12px">
-                          <Text fontSize="sm" fontWeight="700" color="slate.600">💰 料金:</Text>
-                          <Text fontSize="sm" fontWeight="800" color="orange.600">{formatPrice(selectedMenuData.price)}</Text>
+                        <HStack justify="space-between" p={3} bg="white" borderRadius="md">
+                          <Text fontSize="sm" fontWeight="medium" color="gray.600">料金</Text>
+                          <Text fontSize="sm" fontWeight="bold" color="gray.900">{formatPrice(selectedMenuData.price)}</Text>
                         </HStack>
-                        <HStack justify="space-between" bg="transparent" p={3} borderRadius="12px">
-                          <Text fontSize="sm" fontWeight="700" color="slate.600">⏱️ 所要時間:</Text>
-                          <Text fontSize="sm" fontWeight="600" color="slate.800">{formatDuration(selectedMenuData.duration)}</Text>
+                        <HStack justify="space-between" p={3} bg="white" borderRadius="md">
+                          <Text fontSize="sm" fontWeight="medium" color="gray.600">所要時間</Text>
+                          <Text fontSize="sm" fontWeight="semibold" color="gray.900">{formatDuration(selectedMenuData.duration)}</Text>
                         </HStack>
                         {selectedDate && selectedTime && (
-                          <HStack justify="space-between" bg="transparent" p={3} borderRadius="12px">
-                            <Text fontSize="sm" fontWeight="700" color="slate.600">日時:</Text>
-                            <Text fontSize="sm" fontWeight="800" color="purple.600">
+                          <HStack justify="space-between" p={3} bg="white" borderRadius="md">
+                            <Text fontSize="sm" fontWeight="medium" color="gray.600">日時</Text>
+                            <Text fontSize="sm" fontWeight="bold" color="primary.600">
                               {new Date(selectedDate).toLocaleDateString('ja-JP')} {selectedTime}
                             </Text>
                           </HStack>
@@ -697,70 +451,19 @@ export default function ReservationPage() {
                   </Box>
                 )}
 
-                {/* Cosmic Submit Button */}
-                <Box
+                {/* Submit Button */}
+                <Button
+                  variant={(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ? "outline" : "primary"}
+                  size="lg"
                   w="full"
-                  h="64px"
-                  bg={(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ?
-                    'linear-gradient(135deg, gray.300, gray.400)' :
-                    'linear-gradient(135deg, #667eea 0%, #764ba2 25%, #06b6d4 50%, #8b5cf6 100%)'
-                  }
-                  borderRadius="20px"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  cursor={(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ? 'not-allowed' : 'pointer'}
-                  position="relative"
-                  overflow="hidden"
-                  shadow={(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ?
-                    '0 8px 16px rgba(0, 0, 0, 0.1)' :
-                    '0 16px 32px rgba(6, 182, 212, 0.4)'
-                  }
-                  _hover={(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ? {} : {
-                    transform: 'translateY(-4px) scale(1.02)',
-                    shadow: '0 20px 40px rgba(6, 182, 212, 0.5)'
-                  }}
-                  _before={(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ? {} : {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: '-100%',
-                    w: 'full',
-                    h: 'full',
-                    bg: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
-                    animation: 'shimmer 2s ease-in-out infinite'
-                  }}
-                  transition="all 0.3s ease"
-                  onClick={(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ? undefined : handleSubmit}
+                  isDisabled={!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone}
+                  onClick={handleSubmit}
                 >
-                  <HStack gap={4}>
-                    <Box
-                      fontSize="2xl"
-                      animation={(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ? 'none' : 'pulse 1.5s ease-in-out infinite'}
-                      filter="drop-shadow(0 0 8px rgba(255, 255, 255, 0.6))"
-                    >
-                      ""
-                    </Box>
-                    <Text
-                      color="white"
-                      fontSize="xl"
-                      fontWeight="800"
-                      letterSpacing="0.02em"
-                    >
-                      {(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ?
-                        '必須項目を入力してください' :
-                        '予約を確定する'
-                      }
-                    </Text>
-                    <Box
-                      fontSize="2xl"
-                      animation={(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ? 'none' : 'pulse 1.5s ease-in-out infinite 0.5s'}
-                      filter="drop-shadow(0 0 8px rgba(255, 255, 255, 0.6))"
-                    >
-                      ""
-                    </Box>
-                  </HStack>
-                </Box>
+                  {(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ?
+                    '必須項目を入力してください' :
+                    '予約を確定する'
+                  }
+                </Button>
 
               </VStack>
           </Box>

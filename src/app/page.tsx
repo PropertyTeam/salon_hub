@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { 
   Box, 
@@ -39,7 +39,7 @@ const mockStores = [
       'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop'
     ],
     ownerId: '3',
-    category: 'HAIR_SALON',
+    category: 'HAIR_SALON' as const,
     tags: ['カット', 'カラー', 'パーマ', 'トリートメント'],
     createdAt: new Date('2024-01-01'),
     updatedAt: new Date('2024-01-15'),
@@ -61,7 +61,7 @@ const mockStores = [
       'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=600&fit=crop'
     ],
     ownerId: '3',
-    category: 'NAIL_SALON',
+    category: 'NAIL_SALON' as const,
     tags: ['ネイルアート', 'ジェルネイル', 'マニキュア', 'ケア'],
     createdAt: new Date('2024-01-05'),
     updatedAt: new Date('2024-01-10'),
@@ -83,7 +83,7 @@ const mockStores = [
       'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop'
     ],
     ownerId: '3',
-    category: 'RELAXATION',
+    category: 'RELAXATION' as const,
     tags: ['マッサージ', 'リラクゼーション', 'アロマ', 'フェイシャル'],
     createdAt: new Date('2024-01-03'),
     updatedAt: new Date('2024-01-12'),
@@ -94,52 +94,6 @@ export default function HomePage() {
   const [searchArea, setSearchArea] = useState('')
   const [searchService, setSearchService] = useState('')
   const [searchDate, setSearchDate] = useState('')
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [currentAnnouncementIndex, setCurrentAnnouncementIndex] = useState(0)
-  
-  // Background images for slider
-  const backgroundImages = [
-    'https://images.unsplash.com/photo-1559599101-f09722fb4948?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-    'https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-    'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-    'https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
-  ]
-  
-  // Announcement data
-  const announcements = [
-    {
-      id: 1,
-      title: "春の新キャンペーン開催中！",
-      description: "人気サロンでヘアカット＋カラーが30%OFF！この機会をお見逃しなく。",
-      image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      buttonText: "詳細を見る"
-    },
-    {
-      id: 2,
-      title: "新規オープン記念",
-      description: "表参道に新しくオープンしたプレミアムサロンをご紹介。初回限定50%OFFキャンペーン実施中。",
-      image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      buttonText: "予約する"
-    },
-    {
-      id: 3,
-      title: "夏のスペシャルメニュー",
-      description: "暑い夏にぴったりの爽やかヘアスタイル。涼しげなカットとトリートメントで快適に。",
-      image: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      buttonText: "メニューを見る"
-    }
-  ]
-  
-  // Auto slide effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
-        prevIndex === backgroundImages.length - 1 ? 0 : prevIndex + 1
-      )
-    }, 4000) // Change image every 4 seconds
-    
-    return () => clearInterval(interval)
-  }, [backgroundImages.length])
   
   // Get salons for display (using fixed order to prevent hydration errors)
   const randomSalons = mockStores
@@ -155,41 +109,44 @@ export default function HomePage() {
 
   return (
     <MainLayout>
-      {/* Hero Section - Image Slider */}
+      {/* Hero Section */}
       <Box
         position="relative"
-        color="white"
-        py={{ base: 20, md: 32 }}
-        overflow="hidden"
-        backgroundImage={`linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('${backgroundImages[currentImageIndex]}')`}
-        backgroundSize="cover"
-        backgroundPosition="center"
-        transition="background-image 1.5s ease-in-out"
+        bg="white"
+        py={{ base: 16, md: 24 }}
       >
         <Container maxW="6xl" position="relative" zIndex={1}>
           <VStack gap={12} align="center">
             {/* Main Heading */}
-            <VStack gap={4} textAlign="center" maxW="4xl">
+            <VStack gap={6} textAlign="center" maxW="4xl">
               <Heading
-                size={{ base: '2xl', md: '4xl', lg: '5xl' }}
-                fontWeight="300"
-                lineHeight="1.1"
+                size={{ base: '2xl', md: '4xl' }}
+                fontWeight="bold"
+                color="gray.900"
+                lineHeight="1.2"
               >
-                あなたのサロンを見つけよう
+                理想のサロンを見つけよう
               </Heading>
-              <Text fontSize={{ base: 'lg', md: 'xl' }} opacity={0.9} fontWeight="300">
-                数千のサロンから最適な価格を比較
+              <Text
+                fontSize={{ base: 'lg', md: 'xl' }}
+                color="gray.600"
+                fontWeight="medium"
+                lineHeight="1.6"
+              >
+                美容室からネイル、エステまで。あなたにぴったりのサロンを簡単予約
               </Text>
             </VStack>
 
             {/* Search Box */}
             <Box
               bg="white"
-              borderRadius="lg"
-              p={6}
-              shadow="2xl"
+              borderRadius="xl"
+              p={8}
+              shadow="lg"
+              border="1px solid"
+              borderColor="gray.200"
               w="full"
-              maxW="5xl"
+              maxW="4xl"
             >
               <Grid 
                 templateColumns={{ base: '1fr', md: '2fr 1fr 1fr auto' }} 
@@ -252,33 +209,6 @@ export default function HomePage() {
             </Box>
           </VStack>
         </Container>
-        
-        {/* Slide Indicators */}
-        <HStack
-          position="absolute"
-          bottom={4}
-          left="50%"
-          transform="translateX(-50%)"
-          gap={2}
-          zIndex={2}
-        >
-          {backgroundImages.map((_, index) => (
-            <Box
-              key={index}
-              w={3}
-              h={3}
-              borderRadius="50%"
-              bg={index === currentImageIndex ? "white" : "rgba(255, 255, 255, 0.5)"}
-              cursor="pointer"
-              transition="all 0.3s ease"
-              onClick={() => setCurrentImageIndex(index)}
-              _hover={{
-                bg: "white",
-                transform: "scale(1.2)"
-              }}
-            />
-          ))}
-        </HStack>
       </Box>
 
       {/* Quick Filters */}
@@ -299,12 +229,123 @@ export default function HomePage() {
         </Container>
       </Box>
 
-      {/* Featured Salons Carousel */}
-      <SalonCarousel 
-        salons={mockStores.slice(0, 9)} 
-        title="おすすめ複数サロン"
-        subtitle="厳選された人気サロンをスライドで探索"
-      />
+      {/* News & Announcements */}
+      <Box py={16} bg="primary.50">
+        <Container maxW="6xl">
+          <VStack gap={8} align="stretch">
+
+            {/* Header */}
+            <VStack gap={3} textAlign="center">
+              <Heading
+                size="lg"
+                color="gray.900"
+                fontWeight="bold"
+              >
+                お知らせ
+              </Heading>
+              <Text color="gray.600" fontSize="lg">
+                最新のキャンペーンやニュースをお届けします
+              </Text>
+            </VStack>
+
+            {/* News Cards */}
+            <VStack gap={4} align="stretch">
+              {[
+                {
+                  id: 1,
+                  date: "2024.01.15",
+                  category: "キャンペーン",
+                  title: "新春キャンペーン開催中！対象メニューが最大30%OFF",
+                  description: "1月末まで期間限定で人気メニューがお得に。この機会をお見逃しなく！",
+                  isNew: true
+                },
+                {
+                  id: 2,
+                  date: "2024.01.10",
+                  category: "新機能",
+                  title: "オンライン予約システムがさらに便利に",
+                  description: "24時間いつでも予約・変更・キャンセルが可能になりました。",
+                  isNew: true
+                },
+                {
+                  id: 3,
+                  date: "2024.01.05",
+                  category: "お知らせ",
+                  title: "営業時間変更のご案内",
+                  description: "一部店舗で営業時間を変更いたします。詳細は各店舗ページをご確認ください。",
+                  isNew: false
+                }
+              ].map((news, index) => (
+                <Box
+                  key={news.id}
+                  bg="white"
+                  borderRadius="lg"
+                  p={6}
+                  border="1px solid"
+                  borderColor="gray.200"
+                  shadow="sm"
+                  _hover={{
+                    shadow: "md",
+                    borderColor: "primary.300"
+                  }}
+                  transition="all 0.2s ease"
+                  cursor="pointer"
+                >
+                  <HStack gap={4} align="start">
+                    <VStack align="start" gap={1} minW="80px">
+                      <Text fontSize="sm" color="gray.500" fontWeight="medium">
+                        {news.date}
+                      </Text>
+                      <Badge
+                        bg={news.category === "キャンペーン" ? "orange.50" :
+                            news.category === "新機能" ? "primary.50" : "gray.100"}
+                        color={news.category === "キャンペーン" ? "orange.700" :
+                               news.category === "新機能" ? "primary.700" : "gray.700"}
+                        fontSize="xs"
+                        px={2}
+                        py={1}
+                        borderRadius="md"
+                        fontWeight="medium"
+                      >
+                        {news.category}
+                      </Badge>
+                    </VStack>
+
+                    <VStack align="start" gap={2} flex="1">
+                      <HStack gap={2} align="center">
+                        <Heading size="sm" color="gray.900" fontWeight="semibold">
+                          {news.title}
+                        </Heading>
+                        {news.isNew && (
+                          <Badge
+                            bg="red.500"
+                            color="white"
+                            fontSize="xs"
+                            px={2}
+                            py={1}
+                            borderRadius="full"
+                            fontWeight="medium"
+                          >
+                            NEW
+                          </Badge>
+                        )}
+                      </HStack>
+                      <Text color="gray.600" fontSize="sm" lineHeight="1.6">
+                        {news.description}
+                      </Text>
+                    </VStack>
+
+                    <Text color="primary.600" fontSize="sm" fontWeight="medium">
+                      詳細 →
+                    </Text>
+                  </HStack>
+                </Box>
+              ))}
+            </VStack>
+
+          </VStack>
+        </Container>
+      </Box>
 
       {/* Results Section */}
       <Box py={12} bg="white">
@@ -346,10 +387,9 @@ export default function HomePage() {
                 <Link key={store.id} href={`/store/${store.id}`}>
                   <Card 
                     variant="outline"
-                    _hover={{ 
+                    _hover={{
                       borderColor: 'blue.300',
-                      shadow: 'lg',
-                      transform: 'translateY(-2px)'
+                      shadow: 'lg'
                     }}
                     transition="all 0.2s ease"
                     cursor="pointer"
@@ -360,31 +400,26 @@ export default function HomePage() {
                       {/* Image */}
                       <Box
                         h={{ base: '200px', md: '180px' }}
-                        bgGradient={`linear(45deg, blue.${400 + index * 50}, teal.${400 + index * 30})`}
+                        bg="gray.100"
                         position="relative"
                         borderLeftRadius="lg"
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
-                        color="white"
+                        color="gray.500"
                       >
-                        <VStack gap={3}>
-                          <Box
-                            fontSize="4xl"
-                            filter="drop-shadow(0 4px 8px rgba(255, 255, 255, 0.3))"
-                            animation="float 3s ease-in-out infinite"
-                          >
+                        <VStack gap={2}>
+                          <Box fontSize="3xl">
                             ✂️
                           </Box>
                           <Badge
-                            bg="rgba(255, 255, 255, 0.9)"
+                            bg="white"
                             color="gray.700"
-                            fontSize="sm"
-                            px={4}
-                            py={2}
-                            borderRadius="full"
-                            fontWeight="600"
-                            shadow="0 4px 12px rgba(0, 0, 0, 0.1)"
+                            fontSize="xs"
+                            px={3}
+                            py={1}
+                            borderRadius="md"
+                            fontWeight="medium"
                           >
                             美容室
                           </Badge>
@@ -430,38 +465,35 @@ export default function HomePage() {
                           
                           <HStack gap={2} flexWrap="wrap">
                             <Badge
-                              bg="linear-gradient(135deg, #3b82f6, #1d4ed8)"
-                              color="white"
+                              bg="primary.50"
+                              color="primary.700"
                               px={3}
                               py={1}
-                              borderRadius="full"
+                              borderRadius="md"
                               fontSize="xs"
-                              fontWeight="600"
-                              shadow="0 2px 8px rgba(59, 130, 246, 0.3)"
+                              fontWeight="medium"
                             >
                               カット
                             </Badge>
                             <Badge
-                              bg="linear-gradient(135deg, #8b5cf6, #7c3aed)"
-                              color="white"
+                              bg="gray.100"
+                              color="gray.700"
                               px={3}
                               py={1}
-                              borderRadius="full"
+                              borderRadius="md"
                               fontSize="xs"
-                              fontWeight="600"
-                              shadow="0 2px 8px rgba(139, 92, 246, 0.3)"
+                              fontWeight="medium"
                             >
                               カラー
                             </Badge>
                             <Badge
-                              bg="linear-gradient(135deg, #06b6d4, #0891b2)"
-                              color="white"
+                              bg="gray.100"
+                              color="gray.700"
                               px={3}
                               py={1}
-                              borderRadius="full"
+                              borderRadius="md"
                               fontSize="xs"
-                              fontWeight="600"
-                              shadow="0 2px 8px rgba(6, 182, 212, 0.3)"
+                              fontWeight="medium"
                             >
                               パーマ
                             </Badge>
@@ -539,10 +571,9 @@ export default function HomePage() {
                 <Link key={store.id} href={`/store/${store.id}`}>
                   <Card 
                     variant="outline"
-                    _hover={{ 
+                    _hover={{
                       borderColor: 'blue.300',
-                      shadow: 'lg',
-                      transform: 'translateY(-4px)'
+                      shadow: 'lg'
                     }}
                     transition="all 0.3s ease"
                     cursor="pointer"
@@ -553,48 +584,35 @@ export default function HomePage() {
                       {/* Image */}
                       <Box
                         h="180px"
-                        backgroundImage={store.images?.[0] || `linear-gradient(45deg, ${
-                          ['blue.400', 'purple.400', 'teal.400', 'green.400', 'pink.400', 'orange.400'][index % 6]
-                        }, ${
-                          ['blue.600', 'purple.600', 'teal.600', 'green.600', 'pink.600', 'orange.600'][index % 6]
-                        })`}
-                        backgroundSize="cover"
-                        backgroundPosition="center"
+                        bg="gray.100"
                         borderTopRadius="lg"
                         position="relative"
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
+                        color="gray.500"
                       >
-                        {!store.images?.[0] && (
-                          <VStack gap={3}>
-                            <Box
-                              fontSize="5xl"
-                              filter="drop-shadow(0 6px 12px rgba(255, 255, 255, 0.4))"
-                              animation="float 4s ease-in-out infinite"
-                            >
-                              {store.category === 'HAIR_SALON' ? '✂️' :
-                               store.category === 'NAIL_SALON' ? '💅' :
-                               store.category === 'RELAXATION' ? '🌸' : '✨'}
-                            </Box>
-                            <Badge
-                              bg="rgba(255, 255, 255, 0.95)"
-                              color="gray.700"
-                              fontSize="sm"
-                              px={4}
-                              py={2}
-                              borderRadius="full"
-                              fontWeight="700"
-                              shadow="0 6px 15px rgba(0, 0, 0, 0.15)"
-                              border="1px solid rgba(255, 255, 255, 0.5)"
-                            >
-                              {store.category === 'HAIR_SALON' ? '美容室' :
-                               store.category === 'NAIL_SALON' ? 'ネイル' :
-                               store.category === 'RELAXATION' ? 'リラク' : 'サロン'}
-                            </Badge>
-                          </VStack>
-                        )}
-                        
+                        <VStack gap={2}>
+                          <Box fontSize="3xl">
+                            {store.category === 'HAIR_SALON' ? '✂️' :
+                             store.category === 'NAIL_SALON' ? '💅' :
+                             store.category === 'RELAXATION' ? '🌸' : '✨'}
+                          </Box>
+                          <Badge
+                            bg="white"
+                            color="gray.700"
+                            fontSize="xs"
+                            px={3}
+                            py={1}
+                            borderRadius="md"
+                            fontWeight="medium"
+                          >
+                            {store.category === 'HAIR_SALON' ? '美容室' :
+                             store.category === 'NAIL_SALON' ? 'ネイル' :
+                             store.category === 'RELAXATION' ? 'リラク' : 'サロン'}
+                          </Badge>
+                        </VStack>
+
                         {/* Rating Badge */}
                         <Box
                           position="absolute"
@@ -604,9 +622,9 @@ export default function HomePage() {
                           px={2}
                           py={1}
                           borderRadius="md"
-                          shadow="md"
+                          shadow="sm"
                         >
-                          <HStack gap={1} fontSize="sm">
+                          <HStack gap={1} fontSize="xs">
                             <Text color="orange.400">★</Text>
                             <Text color="gray.700" fontWeight="medium">
                               {store.rating?.toFixed(1) || '4.0'}
@@ -654,14 +672,13 @@ export default function HomePage() {
                           {store.tags?.slice(0, 2).map((tag, tagIndex) => (
                             <Badge
                               key={tagIndex}
-                              bg="linear-gradient(135deg, #06b6d4, #3b82f6)"
-                              color="white"
+                              bg="gray.100"
+                              color="gray.700"
                               px={3}
                               py={1}
-                              borderRadius="full"
+                              borderRadius="md"
                               fontSize="xs"
-                              fontWeight="600"
-                              shadow="0 2px 8px rgba(6, 182, 212, 0.3)"
+                              fontWeight="medium"
                             >
                               {tag}
                             </Badge>

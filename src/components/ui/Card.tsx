@@ -32,7 +32,6 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         },
         ...(hover && {
           _hover: {
-            transform: 'translateY(-8px) scale(1.02)',
             shadow: '0 25px 50px rgba(6, 182, 212, 0.2), 0 15px 30px rgba(14, 165, 233, 0.15)',
             _before: {
               opacity: 1

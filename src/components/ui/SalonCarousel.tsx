@@ -62,49 +62,20 @@ export function SalonCarousel({ salons, title = "おすすめ複数サロン", s
   if (salons.length === 0) return null
 
   return (
-    <Box py={12} bg="gray.50" position="relative" overflow="hidden">
-      {/* Background decoration */}
-      <Box
-        position="absolute"
-        top="20px"
-        left="10%"
-        w="100px"
-        h="100px"
-        bg="radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)"
-        borderRadius="50%"
-        animation="float 8s ease-in-out infinite"
-      />
-      <Box
-        position="absolute"
-        bottom="20px"
-        right="15%"
-        w="80px"
-        h="80px"
-        bg="radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, transparent 70%)"
-        borderRadius="50%"
-        animation="float 6s ease-in-out infinite reverse"
-      />
-
-      <Container maxW="6xl" position="relative" zIndex={1}>
+    <Box py={16} bg="white" position="relative">
+      <Container maxW="6xl">
         <VStack gap={8} align="stretch">
           
           {/* Header */}
-          <VStack gap={2} textAlign="center">
-            <HStack gap={2} justify="center" align="center">
-              <Text fontSize="2xl" animation="pulse 2s infinite">⭐</Text>
-              <Heading 
-                size="lg" 
-                color="gray.800" 
-                fontWeight="700"
-                bg="linear-gradient(135deg, blue.600, purple.600)"
-                bgClip="text"
-                filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))"
-              >
-                {title}
-              </Heading>
-              <Text fontSize="2xl" animation="pulse 2s infinite 0.5s">⭐</Text>
-            </HStack>
-            <Text color="gray.600" fontSize="md" fontWeight="500">
+          <VStack gap={3} textAlign="center">
+            <Heading
+              size="lg"
+              color="gray.900"
+              fontWeight="bold"
+            >
+              {title}
+            </Heading>
+            <Text color="gray.600" fontSize="lg">
               {subtitle}
             </Text>
           </VStack>
@@ -116,49 +87,51 @@ export function SalonCarousel({ salons, title = "おすすめ複数サロン", s
             <IconButton
               aria-label="前へ"
               position="absolute"
-              left="-20px"
+              left="-16px"
               top="50%"
               transform="translateY(-50%)"
               zIndex={10}
-              size="lg"
-              borderRadius="50%"
+              size="md"
+              borderRadius="full"
               bg="white"
-              shadow="lg"
-              border="2px solid rgba(59, 130, 246, 0.2)"
-              color="blue.600"
+              shadow="md"
+              border="1px solid"
+              borderColor="gray.200"
+              color="gray.600"
               _hover={{
-                bg: "blue.50",
-                borderColor: "blue.400",
-                transform: "translateY(-50%) scale(1.1)"
+                bg: "gray.50",
+                borderColor: "gray.300",
+                color: "gray.700"
               }}
-              transition="all 0.3s ease"
+              transition="all 0.2s ease"
               onClick={prevSlide}
             >
-              <Text fontSize="lg" fontWeight="bold">‹</Text>
+              <Text fontSize="lg">‹</Text>
             </IconButton>
 
             <IconButton
               aria-label="次へ"
               position="absolute"
-              right="-20px"
+              right="-16px"
               top="50%"
               transform="translateY(-50%)"
               zIndex={10}
-              size="lg"
-              borderRadius="50%"
+              size="md"
+              borderRadius="full"
               bg="white"
-              shadow="lg"
-              border="2px solid rgba(59, 130, 246, 0.2)"
-              color="blue.600"
+              shadow="md"
+              border="1px solid"
+              borderColor="gray.200"
+              color="gray.600"
               _hover={{
-                bg: "blue.50",
-                borderColor: "blue.400",
-                transform: "translateY(-50%) scale(1.1)"
+                bg: "gray.50",
+                borderColor: "gray.300",
+                color: "gray.700"
               }}
-              transition="all 0.3s ease"
+              transition="all 0.2s ease"
               onClick={nextSlide}
             >
-              <Text fontSize="lg" fontWeight="bold">›</Text>
+              <Text fontSize="lg">›</Text>
             </IconButton>
 
             {/* Slides Container */}
@@ -190,7 +163,6 @@ export function SalonCarousel({ salons, title = "おすすめ複数サロン", s
                         shadow="md"
                         _hover={{
                           shadow: "xl",
-                          transform: "translateY(-4px)",
                           borderColor: "blue.200"
                         }}
                         transition="all 0.3s ease"
@@ -201,42 +173,46 @@ export function SalonCarousel({ salons, title = "おすすめ複数サロン", s
                           {/* Image */}
                           <Box
                             h="180px"
-                            bgGradient={`linear(45deg, ${
-                              ['blue.400', 'purple.400', 'teal.400', 'green.400', 'pink.400', 'orange.400'][index % 6]
-                            }, ${
-                              ['blue.600', 'purple.600', 'teal.600', 'green.600', 'pink.600', 'orange.600'][index % 6]
-                            })`}
+                            bg="gray.100"
                             position="relative"
                             display="flex"
                             alignItems="center"
                             justifyContent="center"
+                            color="gray.500"
                           >
                             <VStack gap={2}>
-                              <Text fontSize="3xl" color="white">
+                              <Text fontSize="3xl">
                                 {getCategoryIcon(salon.category)}
                               </Text>
-                              <Badge colorScheme="whiteAlpha" variant="solid" fontSize="xs">
-                                {salon.category === 'HAIR_SALON' ? '美容室' : 
-                                 salon.category === 'NAIL_SALON' ? 'ネイル' : 
+                              <Badge
+                                bg="white"
+                                color="gray.700"
+                                fontSize="xs"
+                                px={3}
+                                py={1}
+                                borderRadius="md"
+                                fontWeight="medium"
+                              >
+                                {salon.category === 'HAIR_SALON' ? '美容室' :
+                                 salon.category === 'NAIL_SALON' ? 'ネイル' :
                                  salon.category === 'RELAXATION' ? 'リラク' : 'サロン'}
                               </Badge>
                             </VStack>
-                            
+
                             {/* Rating Badge */}
                             <Box
                               position="absolute"
                               top={3}
                               right={3}
-                              bg="rgba(255, 255, 255, 0.95)"
-                              backdropFilter="blur(10px)"
+                              bg="white"
                               px={2}
                               py={1}
-                              borderRadius="lg"
+                              borderRadius="md"
                               shadow="sm"
                             >
-                              <HStack gap={1} fontSize="sm">
-                                <Text color="orange.400">⭐</Text>
-                                <Text color="gray.700" fontWeight="600">
+                              <HStack gap={1} fontSize="xs">
+                                <Text color="orange.400">★</Text>
+                                <Text color="gray.700" fontWeight="medium">
                                   {salon.rating?.toFixed(1) || '4.0'}
                                 </Text>
                               </HStack>
@@ -266,15 +242,17 @@ export function SalonCarousel({ salons, title = "おすすめ複数サロン", s
                             </VStack>
                             
                             {/* Tags */}
-                            <HStack gap={1} flexWrap="wrap">
+                            <HStack gap={2} flexWrap="wrap">
                               {salon.tags?.slice(0, 2).map((tag, tagIndex) => (
-                                <Badge 
-                                  key={tagIndex} 
-                                  colorScheme="blue" 
-                                  variant="subtle" 
+                                <Badge
+                                  key={tagIndex}
+                                  bg="gray.100"
+                                  color="gray.700"
                                   fontSize="xs"
                                   px={2}
                                   py={1}
+                                  borderRadius="md"
+                                  fontWeight="medium"
                                 >
                                   {tag}
                                 </Badge>
@@ -286,11 +264,11 @@ export function SalonCarousel({ salons, title = "おすすめ複数サロン", s
                               <Text fontSize="xs" color="gray.500">
                                 ({salon.reviewCount || 0}件)
                               </Text>
-                              <Text 
-                                fontSize="sm" 
-                                color="blue.600" 
-                                fontWeight="600"
-                                _hover={{ color: "blue.700" }}
+                              <Text
+                                fontSize="sm"
+                                color="primary.600"
+                                fontWeight="medium"
+                                _hover={{ color: "primary.700" }}
                               >
                                 詳細 →
                               </Text>
@@ -314,18 +292,18 @@ export function SalonCarousel({ salons, title = "おすすめ複数サロン", s
               {Array.from({ length: maxIndex + 1 }, (_, index) => (
                 <Box
                   key={index}
-                  w={currentIndex === index ? "24px" : "8px"}
-                  h="8px"
+                  w={currentIndex === index ? "20px" : "6px"}
+                  h="6px"
                   borderRadius="full"
-                  bg={currentIndex === index ? "blue.500" : "gray.300"}
+                  bg={currentIndex === index ? "primary.500" : "gray.300"}
                   cursor="pointer"
-                  transition="all 0.3s ease"
+                  transition="all 0.2s ease"
                   onClick={() => {
                     setCurrentIndex(index)
                     setIsAutoSliding(false)
                   }}
                   _hover={{
-                    bg: currentIndex === index ? "blue.600" : "gray.400"
+                    bg: currentIndex === index ? "primary.600" : "gray.400"
                   }}
                 />
               ))}
@@ -334,13 +312,6 @@ export function SalonCarousel({ salons, title = "おすすめ複数サロン", s
 
         </VStack>
       </Container>
-
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-        }
-      `}</style>
     </Box>
   )
 }

@@ -6,7 +6,8 @@
       "Bash(npm run build:*)",
       "Bash(mkdir:*)",
       "Bash(find:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "WebFetch(domain:issuehunt.jp)"
     ],
     "deny": [],
     "ask": []
