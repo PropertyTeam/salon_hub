@@ -210,9 +210,11 @@ export default function CouponsPage() {
                           店舗詳細
                         </Button>
                       </Link>
-                      <Button variant="primary" size="sm" flex={1}>
-                        クーポンを使う
-                      </Button>
+                      <Box flex={1}>
+                        <Button variant="primary" size="sm" fullWidth>
+                          クーポンを使う
+                        </Button>
+                      </Box>
                     </React.Fragment>
                   ) : (
                     <Button variant="ghost" size="sm" fullWidth disabled>

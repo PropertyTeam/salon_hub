@@ -1,7 +1,7 @@
 import { Fragment, ReactNode } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Button } from './Button';
+import { Button } from '@/components/ui/Button';
 
 interface ModalProps {
   isOpen: boolean;

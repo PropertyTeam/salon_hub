@@ -9,9 +9,9 @@ import {
   Text,
   Heading,
   SimpleGrid,
-  Textarea,
-  Alert
+  Textarea
 } from '@chakra-ui/react'
+import { Alert } from '@chakra-ui/alert'
 import {
   Field
 } from '@/components/forms/field'
@@ -313,9 +313,8 @@ export default function ContactPage() {
                         variant="primary"
                         size="lg"
                         isLoading={isLoading}
-                        loadingText="送信中..."
                       >
-                        送信する
+                        {isLoading ? '送信中...' : '送信する'}
                       </Button>
                     </VStack>
                   </form>

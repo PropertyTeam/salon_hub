@@ -20,9 +20,12 @@
     "@prisma/client": "^6.15.0",
     "@stripe/stripe-js": "^7.9.0",
     "@tanstack/react-query": "^5.87.1",
+    "@typescript-eslint/eslint-plugin": "^8.44.1",
+    "@typescript-eslint/parser": "^8.44.1",
     "bcryptjs": "^3.0.2",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "eslint-config-next": "^15.5.3",
     "framer-motion": "^12.23.12",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.542.0",
@@ -50,7 +53,7 @@
     "@types/node": "^20.11.16",
     "@types/react": "^18.2.52",
     "@types/react-dom": "^18.2.18",
-    "eslint": "^9.35.0",
+    "eslint": "^9.36.0",
     "typescript": "^5.3.3"
   }
 }

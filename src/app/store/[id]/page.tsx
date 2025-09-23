@@ -651,6 +651,7 @@ export default function StoreDetailPage() {
                             <VStack align="stretch" gap={3}>
                               <HStack justify="space-between" align="start">
                                 <HStack gap={3}>
+                          
                                   <Box
                                     w="32px"
                                     h="32px"

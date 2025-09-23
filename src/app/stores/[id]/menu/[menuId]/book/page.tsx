@@ -127,8 +127,6 @@ export default function BookMenuPage({ params }: { params: { id: string, menuId:
                   variant={isSelected ? "primary" : "outline"}
                   size="sm"
                   onClick={() => setSelectedDate(dateStr)}
-                  p={3}
-                  h="auto"
                 >
                   <VStack gap={1}>
                     <Text fontSize="xs">
@@ -162,7 +160,6 @@ export default function BookMenuPage({ params }: { params: { id: string, menuId:
                   size="sm"
                   onClick={() => setSelectedTime(time)}
                   disabled={!isAvailable}
-                  opacity={isAvailable ? 1 : 0.5}
                 >
                   {time}
                 </Button>
@@ -190,8 +187,6 @@ export default function BookMenuPage({ params }: { params: { id: string, menuId:
               variant={selectedStaff === 'any' ? "primary" : "outline"}
               size="lg"
               onClick={() => setSelectedStaff('any')}
-              justifyContent="start"
-              p={4}
             >
               <HStack gap={4}>
                 <Box
@@ -220,8 +215,6 @@ export default function BookMenuPage({ params }: { params: { id: string, menuId:
                 variant={selectedStaff === staff.id ? "primary" : "outline"}
                 size="lg"
                 onClick={() => setSelectedStaff(staff.id)}
-                justifyContent="start"
-                p={4}
               >
                 <HStack gap={4}>
                   <Box
@@ -242,11 +235,11 @@ export default function BookMenuPage({ params }: { params: { id: string, menuId:
                     <HStack gap={2}>
                       <Text fontWeight="600">{staff.name}</Text>
                       <Badge bg="blue.500" color="white" px={2} py={1} borderRadius="full">
-                        {staff.experience}年目
+                        {staff.experience || 0}年目
                       </Badge>
                     </HStack>
                     <Text fontSize="sm" color="gray.600">
-                      {staff.specialties.join(', ')}
+                      {staff.specialties?.join(', ') || '専門分野なし'}
                     </Text>
                   </VStack>
                 </HStack>
@@ -276,7 +269,7 @@ export default function BookMenuPage({ params }: { params: { id: string, menuId:
             <VStack gap={4} align="stretch">
               <HStack gap={4}>
                 <Image
-                  src={store.image}
+                  src={store.images?.[0] || '/placeholder-store.jpg'}
                   alt={store.name}
                   w={16}
                   h={16}

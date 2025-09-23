@@ -226,7 +226,6 @@ export function SalonCarousel({ salons, title = "おすすめ複数サロン", s
                                 fontWeight="700"
                                 fontSize="md"
                                 color="gray.800"
-                                noOfLines={1}
                               >
                                 {salon.name}
                               </Text>
@@ -235,7 +234,6 @@ export function SalonCarousel({ salons, title = "おすすめ複数サロン", s
                                 color="gray.600"
                                 fontSize="sm"
                                 lineHeight="1.4"
-                                noOfLines={2}
                               >
                                 {salon.description || 'サロンの詳細情報'}
                               </Text>

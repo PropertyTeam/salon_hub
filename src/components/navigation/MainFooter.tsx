@@ -28,13 +28,12 @@ type SocialButtonProps = {
 
 function SocialButton({ children, label, href }: SocialButtonProps) {
   return (
-    <chakra.button
+    <chakra.a
       bg="whiteAlpha.100"
       rounded="full"
       w={8}
       h={8}
       cursor="pointer"
-      as="a"
       href={href}
       display="inline-flex"
       alignItems="center"
@@ -46,7 +45,7 @@ function SocialButton({ children, label, href }: SocialButtonProps) {
       rel="noopener noreferrer"
     >
       {children}
-    </chakra.button>
+    </chakra.a>
   )
 }
 

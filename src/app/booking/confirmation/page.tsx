@@ -11,9 +11,9 @@ import {
   Text,
   Heading,
   Badge,
-  Image,
-  Alert
+  Image
 } from '@chakra-ui/react'
+import { Alert } from '@chakra-ui/alert'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 import { MainLayout } from '@/components/layouts/MainLayout'
@@ -110,7 +110,7 @@ export default function BookingConfirmationPage() {
                 {/* Store Info */}
                 <HStack gap={4}>
                   <Image
-                    src={store.image}
+                    src={store.images?.[0] || '/placeholder-store.jpg'}
                     alt={store.name}
                     w={16}
                     h={16}

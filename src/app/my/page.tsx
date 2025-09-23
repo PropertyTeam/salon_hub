@@ -403,19 +403,19 @@ export default function MyPage() {
 
                       <VStack gap={3} align="stretch">
                         <Link href="/stores">
-                          <Button variant="primary" size="md" w="full">
+                          <Button variant="primary" size="md" fullWidth>
                             サロンを探す
                           </Button>
                         </Link>
 
                         <Link href="/my/reservations">
-                          <Button variant="outline" size="md" w="full">
+                          <Button variant="outline" size="md" fullWidth>
                             予約を確認
                           </Button>
                         </Link>
 
                         <Link href="/my/account">
-                          <Button variant="outline" size="md" w="full">
+                          <Button variant="outline" size="md" fullWidth>
                             プロフィール編集
                           </Button>
                         </Link>

@@ -9,10 +9,10 @@ import {
   HStack,
   Text,
   Heading,
-  Switch,
-  SimpleGrid,
-  Alert
+  SimpleGrid
 } from '@chakra-ui/react'
+import { Checkbox } from '@chakra-ui/checkbox'
+import { Alert } from '@chakra-ui/alert'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 import { MainLayout } from '@/components/layouts/MainLayout'
@@ -267,7 +267,7 @@ export default function NotificationsPage() {
                               {settingConfig.description}
                             </Text>
                           </VStack>
-                          <Switch
+                          <Checkbox
                             size="lg"
                             isChecked={enabled as boolean}
                             onChange={(e) => handleSettingChange(
@@ -275,7 +275,6 @@ export default function NotificationsPage() {
                               setting,
                               e.target.checked
                             )}
-                            colorScheme={config.color}
                           />
                         </HStack>
                       )
@@ -304,7 +303,7 @@ export default function NotificationsPage() {
                         夜間はプッシュ通知を停止
                       </Text>
                     </VStack>
-                    <Switch size="lg" defaultChecked colorScheme="blue" />
+                    <Checkbox size="lg" defaultChecked colorScheme="blue" />
                   </HStack>
 
                   <HStack justify="space-between" align="center">
@@ -316,7 +315,7 @@ export default function NotificationsPage() {
                         土日はプロモーション通知を停止
                       </Text>
                     </VStack>
-                    <Switch size="lg" defaultChecked colorScheme="blue" />
+                    <Checkbox size="lg" defaultChecked colorScheme="blue" />
                   </HStack>
 
                   <HStack justify="space-between" align="center">
@@ -328,7 +327,7 @@ export default function NotificationsPage() {
                         同じ種類の通知は1日1回まで
                       </Text>
                     </VStack>
-                    <Switch size="lg" defaultChecked colorScheme="blue" />
+                    <Checkbox size="lg" defaultChecked colorScheme="blue" />
                   </HStack>
                 </VStack>
               </VStack>

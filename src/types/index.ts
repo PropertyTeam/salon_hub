@@ -49,6 +49,7 @@ export interface Staff {
   avatar?: string;
   bio?: string;
   specialties?: string[];
+  experience?: number;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;

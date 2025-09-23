@@ -243,16 +243,6 @@ export default function ReservationPage() {
                           type="date"
                           value={selectedDate}
                           onChange={(e) => setSelectedDate(e.target.value)}
-                          bg="gray.50"
-                          border="1px solid"
-                          borderColor="gray.200"
-                          borderRadius="lg"
-                          _hover={{ borderColor: "gray.300" }}
-                          _focus={{
-                            borderColor: "primary.500",
-                            boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
-                            bg: "white"
-                          }}
                         />
                       </VStack>
                     </GridItem>
@@ -324,16 +314,6 @@ export default function ReservationPage() {
                           placeholder="山田 太郎"
                           value={customerName}
                           onChange={(e) => setCustomerName(e.target.value)}
-                          bg="gray.50"
-                          border="1px solid"
-                          borderColor="gray.200"
-                          borderRadius="lg"
-                          _hover={{ borderColor: "gray.300" }}
-                          _focus={{
-                            borderColor: "primary.500",
-                            boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
-                            bg: "white"
-                          }}
                         />
                       </VStack>
                     </GridItem>
@@ -347,16 +327,6 @@ export default function ReservationPage() {
                           placeholder="090-1234-5678"
                           value={customerPhone}
                           onChange={(e) => setCustomerPhone(e.target.value)}
-                          bg="gray.50"
-                          border="1px solid"
-                          borderColor="gray.200"
-                          borderRadius="lg"
-                          _hover={{ borderColor: "gray.300" }}
-                          _focus={{
-                            borderColor: "primary.500",
-                            boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
-                            bg: "white"
-                          }}
                         />
                       </VStack>
                     </GridItem>
@@ -371,16 +341,6 @@ export default function ReservationPage() {
                           placeholder="example@email.com"
                           value={customerEmail}
                           onChange={(e) => setCustomerEmail(e.target.value)}
-                          bg="gray.50"
-                          border="1px solid"
-                          borderColor="gray.200"
-                          borderRadius="lg"
-                          _hover={{ borderColor: "gray.300" }}
-                          _focus={{
-                            borderColor: "primary.500",
-                            boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
-                            bg: "white"
-                          }}
                         />
                       </VStack>
                     </GridItem>
@@ -455,8 +415,8 @@ export default function ReservationPage() {
                 <Button
                   variant={(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ? "outline" : "primary"}
                   size="lg"
-                  w="full"
-                  isDisabled={!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone}
+                  fullWidth
+                  disabled={!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone}
                   onClick={handleSubmit}
                 >
                   {(!selectedMenu || !selectedDate || !selectedTime || !customerName || !customerEmail || !customerPhone) ?

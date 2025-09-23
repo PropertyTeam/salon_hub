@@ -8,9 +8,9 @@ import {
   VStack,
   HStack,
   Text,
-  Heading,
-  Alert
+  Heading
 } from '@chakra-ui/react'
+import { Alert } from '@chakra-ui/alert'
 import {
   Field
 } from '@/components/forms/field'

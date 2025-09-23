@@ -13,9 +13,9 @@ import {
   Badge,
   Image,
   SimpleGrid,
-  Alert,
   useDisclosure
 } from '@chakra-ui/react'
+import { Alert } from '@chakra-ui/alert'
 import { Divider } from '@chakra-ui/layout'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from '@chakra-ui/modal'
 import { Button } from '@/components/ui/Button'
@@ -25,7 +25,7 @@ import { mockReservations, getMockStoreById } from '../../../../../data/mockData
 
 export default function ReservationDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { open: isOpen, onOpen, onClose } = useDisclosure()
   const [showCancelSuccess, setShowCancelSuccess] = useState(false)
 
   const reservation = mockReservations.find(r => r.id === params.id)
@@ -123,7 +123,7 @@ export default function ReservationDetailPage({ params }: { params: { id: string
                 {/* Store Header */}
                 <HStack gap={4}>
                   <Image
-                    src={store.image}
+                    src={store.images?.[0] || '/placeholder-store.jpg'}
                     alt={store.name}
                     w={20}
                     h={20}

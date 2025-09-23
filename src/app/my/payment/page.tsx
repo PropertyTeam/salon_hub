@@ -10,9 +10,9 @@ import {
   Text,
   Heading,
   SimpleGrid,
-  Badge,
-  Alert
+  Badge
 } from '@chakra-ui/react'
+import { Alert } from '@chakra-ui/alert'
 import {
   Field
 } from '@/components/forms/field'
@@ -263,7 +263,6 @@ export default function PaymentPage() {
                               placeholder="1234 5678 9012 3456"
                               value={cardData.cardNumber}
                               onChange={(e) => handleInputChange('cardNumber', e.target.value)}
-                              maxLength={19}
                             />
                           </Field>
 
@@ -280,8 +279,7 @@ export default function PaymentPage() {
                               placeholder="MM/YY"
                               value={cardData.expiryDate}
                               onChange={(e) => handleInputChange('expiryDate', e.target.value)}
-                              maxLength={5}
-                            />
+                                                          />
                           </Field>
 
                           <Field label="セキュリティコード" invalid={!!errors.cvv} errorText={errors.cvv}>
@@ -289,8 +287,7 @@ export default function PaymentPage() {
                               placeholder="123"
                               value={cardData.cvv}
                               onChange={(e) => handleInputChange('cvv', e.target.value)}
-                              maxLength={3}
-                              type="password"
+                                                            type="password"
                             />
                           </Field>
                         </SimpleGrid>

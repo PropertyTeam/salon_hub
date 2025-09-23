@@ -27,7 +27,10 @@ export default function FavoritesPage() {
   const favoriteStores = mockStores.slice(0, 3)
   const favoriteMenus = mockMenus.slice(0, 4)
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number | undefined) => {
+    if (price === undefined || price === null) {
+      return '¥0'
+    }
     return price.toLocaleString('ja-JP', { style: 'currency', currency: 'JPY' })
   }
 
@@ -37,7 +40,7 @@ export default function FavoritesPage() {
         <VStack gap={0} align="stretch">
           <Box position="relative">
             <Image
-              src={store.image}
+              src={store.images?.[0] || '/placeholder-store.jpg'}
               alt={store.name}
               h="200px"
               w="100%"
@@ -115,7 +118,12 @@ export default function FavoritesPage() {
                 <Text fontSize="sm" color="gray.600">
                   {store?.name}
                 </Text>
-                <Text fontSize="sm" color="gray.600" noOfLines={2}>
+                <Text fontSize="sm" color="gray.600" style={{
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical'
+                }}>
                   {menu.description}
                 </Text>
               </VStack>
@@ -328,12 +336,9 @@ export default function FavoritesPage() {
                       <VStack gap={3} align="start">
                         <Text fontWeight="600">{store.name}</Text>
                         <Text fontSize="sm" opacity={0.9}>
-                          {store.category} • {store.area}
+                          {store.category} • {store.address}
                         </Text>
-                        <HStack justify="space-between" w="100%">
-                          <Text fontSize="sm">
-                            {formatPrice(store.lowestPrice)}〜
-                          </Text>
+                        <HStack justify="flex-end" w="100%">
                           <Link href={`/stores/${store.id}`}>
                             <Button variant="secondary" size="sm">
                               詳細

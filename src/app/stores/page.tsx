@@ -128,18 +128,6 @@ export default function StoresPage() {
                   size="lg"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  bg="gray.50"
-                  border="1px solid"
-                  borderColor="gray.200"
-                  borderRadius="lg"
-                  _hover={{
-                    borderColor: "gray.300"
-                  }}
-                  _focus={{
-                    borderColor: "primary.500",
-                    boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)",
-                    bg: "white"
-                  }}
                 />
               </VStack>
 
@@ -361,7 +349,6 @@ export default function StoresPage() {
                             size="md"
                             color="gray.900"
                             fontWeight="semibold"
-                            noOfLines={1}
                           >
                             {store.name}
                           </Heading>
@@ -370,7 +357,6 @@ export default function StoresPage() {
                             color="gray.600"
                             fontSize="sm"
                             lineHeight="1.6"
-                            noOfLines={2}
                           >
                             {store.description}
                           </Text>

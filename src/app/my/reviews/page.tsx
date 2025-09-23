@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useDisclosure } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
@@ -16,6 +17,8 @@ import {
   Image,
   Textarea
 } from '@chakra-ui/react'
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@chakra-ui/tabs'
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/modal'
 import {
   Field
 } from '@/components/forms/field'
@@ -26,7 +29,7 @@ import { mockStores, mockUsers } from '../../../../data/mockData'
 
 export default function ReviewsPage() {
   const router = useRouter()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { open: isOpen, onOpen, onClose } = useDisclosure()
   const [selectedReview, setSelectedReview] = useState<any>(null)
   const [editingReview, setEditingReview] = useState('')
 
