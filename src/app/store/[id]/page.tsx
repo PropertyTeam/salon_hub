@@ -121,65 +121,38 @@ export default function StoreDetailPage() {
       <Container maxW="7xl" py={8}>
         <VStack gap={8} align="stretch">
           
-          {/* Cosmic Breadcrumb */}
+          {/* Breadcrumb */}
           <HStack
-            bg="white"
-            px={6}
-            py={4}
-            borderRadius="20px"
-            border="2px solid"
-            borderColor="gray.100"
-            shadow="0 4px 12px rgba(0, 0, 0, 0.08)"
-            color="slate.600" 
-            fontSize="sm" 
-            fontWeight="600"
-            position="relative"
-            overflow="hidden"
-            _before={{
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              bg: 'linear-gradient(90deg, rgba(6, 182, 212, 0.1), rgba(147, 51, 234, 0.1))',
-              zIndex: -1
-            }}
+            color="gray.600"
+            fontSize="sm"
+            fontWeight="medium"
           >
             <Link href="/stores">
-              <Text 
-                _hover={{ 
-                  color: 'cyan.500', 
-                  textDecoration: 'underline',
-                  transform: 'translateX(-2px)'
+              <Text
+                _hover={{
+                  color: 'primary.600',
+                  textDecoration: 'underline'
                 }}
-                transition="all 0.3s ease"
+                transition="color 0.2s ease"
                 cursor="pointer"
               >
                 サロン一覧
               </Text>
             </Link>
-            <Text color="slate.600" fontSize="lg">›</Text>
-            <Text 
-              color="slate.700" 
-              fontWeight="700"
-              bg="linear-gradient(135deg, slate.600, slate.800)"
-              bgClip="text"
-            >
+            <Text color="gray.400">›</Text>
+            <Text color="gray.900" fontWeight="semibold">
               {store.name}
             </Text>
           </HStack>
 
           {/* Store Header */}
           <Box
-            position="relative"
             bg="white"
-            borderRadius="24px"
-            border="2px solid"
-            borderColor="gray.100"
+            borderRadius="xl"
+            border="1px solid"
+            borderColor="gray.200"
             p={8}
-            overflow="hidden"
-            shadow="0 10px 40px rgba(0, 0, 0, 0.08)"
+            shadow="lg"
           >
             <Grid templateColumns={{ base: '1fr', lg: '2fr 1fr' }} gap={8}>
             
@@ -190,18 +163,9 @@ export default function StoreDetailPage() {
                   <Box
                     w="full"
                     h="400px"
-                    borderRadius="20px"
+                    borderRadius="lg"
                     overflow="hidden"
-                    position="relative"
-                    bg="gray.50"
-                    shadow="0 8px 25px rgba(0, 0, 0, 0.1)"
-                    border="2px solid"
-                    borderColor="gray.200"
-                    _hover={{
-                      transform: 'translateY(-2px)',
-                      shadow: '0 12px 30px rgba(0, 0, 0, 0.15)'
-                    }}
-                    transition="all 0.3s ease"
+                    bg="gray.100"
                   >
                     {store.images && store.images.length > 0 ? (
                       <Image
@@ -212,27 +176,20 @@ export default function StoreDetailPage() {
                         objectFit="cover"
                       />
                     ) : (
-                      <Center h="full" bg="linear-gradient(135deg, #f1f5f9, #e2e8f0)">
-                        <VStack gap={4}>
-                          <Box
-                            fontSize="8xl"
-                            animation="float 6s ease-in-out infinite"
-                            filter="drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1))"
-                            color="gray.600"
-                          >
+                      <Center h="full" bg="gray.100">
+                        <VStack gap={3}>
+                          <Box fontSize="6xl" color="gray.500">
                             {getCategoryIcon(store.category)}
                           </Box>
                           <Badge
                             bg="white"
                             color="gray.700"
-                            fontSize="lg"
-                            px={6}
-                            py={3}
-                            borderRadius="16px"
-                            fontWeight="700"
-                            shadow="0 4px 12px rgba(0, 0, 0, 0.1)"
-                            border="2px solid"
-                            borderColor="gray.200"
+                            fontSize="sm"
+                            px={4}
+                            py={2}
+                            borderRadius="md"
+                            fontWeight="medium"
+                            shadow="sm"
                           >
                             {getCategoryLabel(store.category)}
                           </Badge>
@@ -241,7 +198,7 @@ export default function StoreDetailPage() {
                     )}
                   </Box>
 
-                  {/* Cosmic Thumbnail Images */}
+                  {/* Thumbnail Images */}
                   {store.images && store.images.length > 1 && (
                     <HStack gap={3} w="full" overflow="auto" pb={2}>
                       {store.images.map((image, index) => (
@@ -249,19 +206,16 @@ export default function StoreDetailPage() {
                           key={index}
                           w="80px"
                           h="60px"
-                          borderRadius="16px"
+                          borderRadius="md"
                           overflow="hidden"
                           cursor="pointer"
-                          border={selectedImageIndex === index ? '3px solid' : '2px solid rgba(255, 255, 255, 0.2)'}
-                          borderColor={selectedImageIndex === index ? 'cyan.400' : 'transparent'}
+                          border="2px solid"
+                          borderColor={selectedImageIndex === index ? 'primary.500' : 'gray.200'}
                           onClick={() => setSelectedImageIndex(index)}
-                          position="relative"
-                          shadow={selectedImageIndex === index ? '0 0 20px rgba(6, 182, 212, 0.4)' : 'md'}
-                          _hover={{ 
-                            transform: 'translateY(-2px) scale(1.05)',
-                            shadow: '0 8px 16px rgba(6, 182, 212, 0.2)'
+                          transition="all 0.2s ease"
+                          _hover={{
+                            borderColor: selectedImageIndex === index ? 'primary.600' : 'gray.300'
                           }}
-                          transition="all 0.3s ease"
                         >
                           <Image
                             src={image}
@@ -270,22 +224,6 @@ export default function StoreDetailPage() {
                             h="full"
                             objectFit="cover"
                           />
-                          {selectedImageIndex === index && (
-                            <Box
-                              position="absolute"
-                              top={1}
-                              right={1}
-                              w={4}
-                              h={4}
-                              bg="cyan.400"
-                              borderRadius="full"
-                              display="flex"
-                              alignItems="center"
-                              justifyContent="center"
-                            >
-                              <Text fontSize="xs" color="white">✓</Text>
-                            </Box>
-                          )}
                         </Box>
                       ))}
                     </HStack>
@@ -301,14 +239,13 @@ export default function StoreDetailPage() {
                 <VStack align="stretch" gap={4}>
                   <VStack align="start" gap={3}>
                     <Badge
-                      bg="blue.500"
-                      color="white"
+                      bg="primary.50"
+                      color="primary.700"
                       fontSize="sm"
-                      px="4"
-                      py="2"
-                      borderRadius="16px"
-                      fontWeight="600"
-                      shadow="0 4px 12px rgba(59, 130, 246, 0.4)"
+                      px={4}
+                      py={2}
+                      borderRadius="md"
+                      fontWeight="medium"
                     >
                       {getCategoryLabel(store.category)}
                     </Badge>
@@ -325,19 +262,18 @@ export default function StoreDetailPage() {
 
                   <HStack gap={6}>
                     <Box
-                      bg="white"
-                      px="5"
-                      py="3"
-                      borderRadius="20px"
-                      shadow="0 4px 12px rgba(0, 0, 0, 0.1)"
-                      border="2px solid"
-                      borderColor="orange.100"
+                      bg="gray.50"
+                      px={4}
+                      py={3}
+                      borderRadius="lg"
+                      border="1px solid"
+                      borderColor="gray.200"
                     >
                       <HStack gap={2}>
-                        <Text color="orange.500" fontSize="xl" fontWeight="800">
+                        <Text color="orange.500" fontSize="lg" fontWeight="semibold">
                           ★ {store.rating?.toFixed(1) || '4.0'}
                         </Text>
-                        <Text color="gray.600" fontSize="sm" fontWeight="600">
+                        <Text color="gray.600" fontSize="sm" fontWeight="medium">
                           ({store.reviewCount || 0}件)
                         </Text>
                       </HStack>
@@ -365,22 +301,15 @@ export default function StoreDetailPage() {
                   {store.tags?.map((tag, index) => (
                     <Badge
                       key={index}
-                      bg="blue.500"
-                      color="white"
+                      bg={index === 0 ? "primary.50" : "gray.100"}
+                      color={index === 0 ? "primary.700" : "gray.700"}
                       fontSize="sm"
-                      px="4"
-                      py="2"
-                      borderRadius="14px"
-                      fontWeight="600"
-                      shadow="0 4px 12px rgba(59, 130, 246, 0.3)"
-                      _hover={{
-                        transform: "translateY(-2px)",
-                        shadow: "0 6px 16px rgba(59, 130, 246, 0.4)",
-                        bg: "blue.600"
-                      }}
-                      transition="all 0.3s ease"
+                      px={3}
+                      py={1}
+                      borderRadius="md"
+                      fontWeight="medium"
                     >
-                      #{tag}
+                      {tag}
                     </Badge>
                   ))}
                 </HStack>
@@ -389,64 +318,54 @@ export default function StoreDetailPage() {
                 <Card variant="outline">
                   <CardContent p={6}>
                     <VStack align="stretch" gap={4}>
-                      <Box
-                        bg="linear-gradient(135deg, cyan.400, sky.500)"
-                        bgClip="text"
-                        color="transparent"
-                        fontWeight="700"
-                        fontSize="lg"
+                      <Heading
+                        size="sm"
+                        color="gray.900"
+                        fontWeight="semibold"
                         mb={2}
                       >
                         店舗情報
-                      </Box>
+                      </Heading>
                       <VStack align="stretch" gap={3}>
-                        <Box bg="transparent" p={3} borderRadius="8px">
-                          <HStack gap={3}>
-                            <Text fontSize="sm" color="slate.600" fontWeight="600" minW="50px">住所:</Text>
-                            <Text fontSize="sm" color="slate.800" fontWeight="500">{store.address}</Text>
-                          </HStack>
-                        </Box>
-                        <Box bg="transparent" p={3} borderRadius="8px">
-                          <HStack gap={3}>
-                            <Text fontSize="sm" color="slate.600" fontWeight="600" minW="50px">電話:</Text>
-                            <Text fontSize="sm" color="slate.800" fontWeight="500">{store.phone}</Text>
-                          </HStack>
-                        </Box>
+                        <HStack gap={3} align="start">
+                          <Text fontSize="sm" color="gray.600" fontWeight="medium" minW="50px">住所:</Text>
+                          <Text fontSize="sm" color="gray.800">{store.address}</Text>
+                        </HStack>
+                        <HStack gap={3} align="start">
+                          <Text fontSize="sm" color="gray.600" fontWeight="medium" minW="50px">電話:</Text>
+                          <Text fontSize="sm" color="gray.800">{store.phone}</Text>
+                        </HStack>
                         {store.website && (
-                          <Box bg="transparent" p={3} borderRadius="8px">
-                            <HStack gap={3}>
-                              <Text fontSize="sm" color="slate.600" fontWeight="600" minW="50px">Web:</Text>
-                              <Text 
-                                fontSize="sm" 
-                                color="cyan.600" 
-                                fontWeight="600"
-                                _hover={{ 
-                                  textDecoration: 'underline',
-                                  color: 'cyan.800'
-                                }}
-                                cursor="pointer"
-                              >
-                                {store.website}
-                              </Text>
-                            </HStack>
-                          </Box>
-                        )}
-                        <Box bg="transparent" p={3} borderRadius="8px">
-                          <HStack gap={3}>
-                            <Text fontSize="sm" color="slate.600" fontWeight="600" minW="50px">営業:</Text>
-                            <Badge 
-                              bg="green.500"
-                              color="white"
-                              fontSize="xs"
-                              px="3"
-                              py="1"
-                              borderRadius="12px"
-                              fontWeight="600"
+                          <HStack gap={3} align="start">
+                            <Text fontSize="sm" color="gray.600" fontWeight="medium" minW="50px">Web:</Text>
+                            <Text
+                              fontSize="sm"
+                              color="primary.600"
+                              fontWeight="medium"
+                              _hover={{
+                                textDecoration: 'underline',
+                                color: 'primary.700'
+                              }}
+                              cursor="pointer"
                             >
-                              営業中 • 20:00まで
-                            </Badge>
+                              {store.website}
+                            </Text>
                           </HStack>
-                        </Box>
+                        )}
+                        <HStack gap={3} align="start">
+                          <Text fontSize="sm" color="gray.600" fontWeight="medium" minW="50px">営業:</Text>
+                          <Badge
+                            bg="green.50"
+                            color="green.700"
+                            fontSize="xs"
+                            px={3}
+                            py={1}
+                            borderRadius="md"
+                            fontWeight="medium"
+                          >
+                            営業中 • 20:00まで
+                          </Badge>
+                        </HStack>
                       </VStack>
                     </VStack>
                   </CardContent>
@@ -488,91 +407,70 @@ export default function StoreDetailPage() {
                         <Box
                           key={menu.id}
                           bg="white"
-                          borderRadius="20px"
-                          border="2px solid"
-                          borderColor="gray.100"
-                          shadow="0 4px 15px rgba(0, 0, 0, 0.08)"
+                          borderRadius="lg"
+                          border="1px solid"
+                          borderColor="gray.200"
+                          shadow="sm"
                           p={6}
-                          position="relative"
-                          overflow="hidden"
                           _hover={{
-                            transform: 'translateY(-4px)',
-                            shadow: '0 12px 30px rgba(0, 0, 0, 0.12)',
-                            borderColor: 'blue.200'
+                            shadow: 'md',
+                            borderColor: 'primary.300'
                           }}
-                          transition="all 0.3s ease"
+                          transition="all 0.2s ease"
                         >
                           <VStack align="stretch" gap={4}>
                             <HStack justify="space-between" align="start">
                               <VStack align="start" gap={2} flex="1">
-                                <HStack gap={2}>
-                                  <Text fontSize="lg">✨</Text>
-                                  <Text
-                                    color="gray.800"
-                                    fontWeight="700"
-                                    fontSize="lg"
-                                  >
-                                    {menu.name}
-                                  </Text>
-                                </HStack>
+                                <Heading
+                                  size="md"
+                                  color="gray.900"
+                                  fontWeight="semibold"
+                                >
+                                  {menu.name}
+                                </Heading>
                                 <Text color="gray.600" fontSize="sm" lineHeight="1.6" fontWeight="500">
                                   {menu.description}
                                 </Text>
                               </VStack>
                               <VStack align="end" gap={1}>
                                 <Text
-                                  color="blue.600"
-                                  fontWeight="800"
+                                  color="gray.900"
+                                  fontWeight="bold"
                                   fontSize="xl"
                                 >
                                   {formatPrice(menu.price)}
                                 </Text>
                                 <Badge
-                                  bg="green.500"
-                                  color="white"
+                                  bg="gray.100"
+                                  color="gray.700"
                                   fontSize="xs"
                                   px={3}
                                   py={1}
-                                  borderRadius="12px"
-                                  fontWeight="600"
-                                  shadow="0 2px 6px rgba(34, 197, 94, 0.3)"
+                                  borderRadius="md"
+                                  fontWeight="medium"
                                 >
-                                  ⏱️ {formatDuration(menu.duration)}
+                                  {formatDuration(menu.duration)}
                                 </Badge>
                               </VStack>
                             </HStack>
                             <HStack justify="space-between" align="center">
                               <Badge
-                                bg="purple.500"
-                                color="white"
+                                bg="primary.50"
+                                color="primary.700"
                                 fontSize="sm"
                                 px={4}
                                 py={2}
-                                borderRadius="14px"
-                                fontWeight="600"
-                                shadow="0 4px 8px rgba(139, 92, 246, 0.3)"
+                                borderRadius="md"
+                                fontWeight="medium"
                               >
-                                🏷️ {menu.category}
+                                {menu.category}
                               </Badge>
-                              <Box
-                                bg="orange.500"
-                                color="white"
-                                px={5}
-                                py={2}
-                                borderRadius="14px"
-                                fontWeight="600"
-                                fontSize="sm"
-                                cursor="pointer"
-                                shadow="0 6px 12px rgba(251, 146, 60, 0.3)"
-                                _hover={{
-                                  transform: 'translateY(-2px)',
-                                  shadow: '0 8px 16px rgba(251, 146, 60, 0.4)',
-                                  bg: 'orange.600'
-                                }}
-                                transition="all 0.3s ease"
+                              <Button
+                                variant="primary"
+                                size="sm"
                               >
-                                ✨ 予約する
-                              </Box>
+                                予約する
+                              </Button>
                             </HStack>
                           </VStack>
                         </Box>
@@ -582,55 +480,19 @@ export default function StoreDetailPage() {
                 </VStack>
             </Box>
 
-            {/* Cosmic Staff */}
+            {/* Staff Section */}
             <Box
-              bg="rgba(255, 255, 255, 0.05)"
-              backdropFilter="blur(30px)"
-              borderRadius="24px"
-              border="1px solid rgba(255, 255, 255, 0.1)"
+              bg="white"
+              borderRadius="xl"
+              border="1px solid"
+              borderColor="gray.200"
               p={8}
-              position="relative"
-              overflow="hidden"
-              _before={{
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                bg: `
-                  radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 60%, rgba(147, 51, 234, 0.05) 0%, transparent 50%)
-                `,
-                zIndex: -1
-              }}
+              shadow="sm"
             >
               <VStack gap={6} align="stretch">
-                <HStack gap={4} align="center">
-                  <Box
-                    w={12}
-                    h={12}
-                    bg="linear-gradient(135deg, orange.400, pink.400)"
-                    borderRadius="20px"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    shadow="0 8px 16px rgba(251, 146, 60, 0.3)"
-                    animation="float 5s ease-in-out infinite"
-                  >
-                    <Text fontSize="2xl">👥</Text>
-                  </Box>
-                  <Box
-                    bg="linear-gradient(135deg, orange.500, pink.500)"
-                    bgClip="text"
-                    color="transparent"
-                    fontWeight="800"
-                    fontSize="2xl"
-                    letterSpacing="-0.02em"
-                  >
-                    スタッフ紹介
-                  </Box>
-                </HStack>
+                <Heading size="lg" color="gray.900" fontWeight="semibold">
+                  スタッフ紹介
+                </Heading>
                   
                   {staff.length === 0 ? (
                     <Center py={12}>
@@ -644,79 +506,55 @@ export default function StoreDetailPage() {
                       {staff.map((member, index) => (
                         <Box
                           key={member.id}
-                          bg="white"
-                          borderRadius="24px"
-                          border="2px solid"
-                          borderColor="gray.100"
-                          shadow="0 4px 15px rgba(0, 0, 0, 0.08)"
+                          bg="gray.50"
+                          borderRadius="lg"
+                          border="1px solid"
+                          borderColor="gray.200"
                           p={6}
-                          position="relative"
-                          overflow="hidden"
-                          _hover={{
-                            transform: 'translateY(-4px)',
-                            shadow: '0 12px 30px rgba(0, 0, 0, 0.12)',
-                            borderColor: 'blue.200'
-                          }}
-                          transition="all 0.3s ease"
                         >
-                          <VStack gap={5}>
+                          <VStack gap={4}>
                             <Box
-                              w="80px"
-                              h="80px"
+                              w="60px"
+                              h="60px"
                               borderRadius="full"
-                              bg="gray.100"
-                              backgroundImage={member.avatar}
-                              backgroundSize="cover"
-                              backgroundPosition="center"
+                              bg="gray.200"
                               display="flex"
                               alignItems="center"
                               justifyContent="center"
-                              shadow="0 12px 24px rgba(0, 0, 0, 0.1)"
-                              border="3px solid white"
-                              position="relative"
                             >
-                              {!member.avatar && (
-                                <Text fontSize="3xl" color="gray.600">
-                                  {index % 3 === 0 ? '🌟' : index % 3 === 1 ? '✨' : '💫'}
-                                </Text>
-                              )}
+                              <Text fontSize="2xl" color="gray.500">
+                                👤
+                              </Text>
                             </Box>
                             <VStack gap={3}>
                               <VStack gap={2}>
-                                <Text
-                                  color="gray.800"
-                                  fontWeight="800"
-                                  fontSize="lg"
-                                  letterSpacing="-0.01em"
+                                <Heading
+                                  size="sm"
+                                  color="gray.900"
                                   textAlign="center"
                                 >
                                   {member.name}
-                                </Text>
+                                </Heading>
                                 <Badge
-                                  bg={member.role === 'MANAGER' ? 'purple.500' :
-                                      member.role === 'OWNER' ? 'orange.500' : 'blue.500'}
-                                  color="white"
+                                  bg={member.role === 'MANAGER' ? 'primary.50' :
+                                      member.role === 'OWNER' ? 'orange.50' : 'gray.100'}
+                                  color={member.role === 'MANAGER' ? 'primary.700' :
+                                         member.role === 'OWNER' ? 'orange.700' : 'gray.700'}
                                   fontSize="xs"
                                   px={3}
                                   py={1}
-                                  borderRadius="12px"
-                                  fontWeight="600"
-                                  shadow="0 4px 8px rgba(0, 0, 0, 0.1)"
+                                  borderRadius="md"
+                                  fontWeight="medium"
                                 >
-                                  {member.role === 'MANAGER' ? '👑 マネージャー' :
-                                   member.role === 'OWNER' ? '🏆 オーナー' : '⭐ スタッフ'}
+                                  {member.role === 'MANAGER' ? 'マネージャー' :
+                                   member.role === 'OWNER' ? 'オーナー' : 'スタッフ'}
                                 </Badge>
                               </VStack>
                               <Text
                                 color="gray.600"
-                                fontSize="sm" 
-                                textAlign="center" 
+                                fontSize="sm"
+                                textAlign="center"
                                 lineHeight="1.6"
-                                fontWeight="500"
-                                bg="gray.50"
-                                px={3}
-                                py={2}
-                                borderRadius="12px"
                               >
                                 {member.bio}
                               </Text>
@@ -724,16 +562,15 @@ export default function StoreDetailPage() {
                                 {member.specialties?.map((specialty, specIndex) => (
                                   <Badge
                                     key={specIndex}
-                                    bg="teal.500"
-                                    color="white"
+                                    bg="gray.100"
+                                    color="gray.700"
                                     fontSize="xs"
-                                    px={3}
+                                    px={2}
                                     py={1}
-                                    borderRadius="10px"
-                                    fontWeight="600"
-                                    shadow="0 2px 6px rgba(20, 184, 166, 0.3)"
+                                    borderRadius="md"
+                                    fontWeight="medium"
                                   >
-                                    #{specialty}
+                                    {specialty}
                                   </Badge>
                                 ))}
                               </HStack>
@@ -761,7 +598,7 @@ export default function StoreDetailPage() {
                     <CardContent p={6}>
                       <HStack gap={8} justify="center">
                         <VStack gap={2}>
-                          <Text fontSize="3xl" fontWeight="bold" color="blue.600">
+                          <Text fontSize="3xl" fontWeight="bold" color="gray.900">
                             {store.rating?.toFixed(1) || '4.0'}
                           </Text>
                           <HStack gap={1}>

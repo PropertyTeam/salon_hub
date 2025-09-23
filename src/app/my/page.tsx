@@ -98,15 +98,15 @@ export default function MyPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'CONFIRMED':
-        return <Badge bg="green.500" color="white">確定</Badge>
+        return <Badge bg="primary.500" color="white" px={3} py={1} borderRadius="md" fontWeight="medium">確定</Badge>
       case 'PENDING':
-        return <Badge bg="yellow.500" color="white">保留中</Badge>
+        return <Badge bg="orange.500" color="white" px={3} py={1} borderRadius="md" fontWeight="medium">保留中</Badge>
       case 'COMPLETED':
-        return <Badge bg="blue.500" color="white">完了</Badge>
+        return <Badge bg="gray.500" color="white" px={3} py={1} borderRadius="md" fontWeight="medium">完了</Badge>
       case 'CANCELLED':
-        return <Badge bg="gray.500" color="white">キャンセル</Badge>
+        return <Badge bg="gray.400" color="white" px={3} py={1} borderRadius="md" fontWeight="medium">キャンセル</Badge>
       default:
-        return <Badge bg="gray.500" color="white">{status}</Badge>
+        return <Badge bg="gray.400" color="white" px={3} py={1} borderRadius="md" fontWeight="medium">{status}</Badge>
     }
   }
 
@@ -122,7 +122,7 @@ export default function MyPage() {
                 w={16}
                 h={16}
                 borderRadius="full"
-                bg="blue.500"
+                bg="primary.500"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
@@ -133,7 +133,7 @@ export default function MyPage() {
                 {currentUser.name?.[0] || '👤'}
               </Box>
               <VStack align="start" gap={1}>
-                <Heading size="lg" color="gray.800">
+                <Heading size="lg" color="gray.900" fontWeight="bold">
                   おかえりなさい、{currentUser.name}さん
                 </Heading>
                 <Text color="gray.600">
@@ -144,52 +144,60 @@ export default function MyPage() {
 
             {/* Quick Stats */}
             <SimpleGrid columns={{ base: 2, md: 4 }} gap={4}>
-              <Card>
-                <CardContent p={4} textAlign="center">
-                  <VStack gap={2}>
-                    <Text fontSize="2xl" fontWeight="800" color="blue.600">
+              <Card variant="outline">
+                <CardContent p={6} textAlign="center">
+                  <VStack gap={3}>
+                    <Text fontSize="3xl" fontWeight="bold" color="primary.600">
                       {upcomingReservations.length}
                     </Text>
-                    <Text fontSize="sm" color="gray.600">
+                    <Text fontSize="sm" color="gray.600" fontWeight="medium">
                       今後の予約
                     </Text>
                   </VStack>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardContent p={4} textAlign="center">
-                  <VStack gap={2}>
-                    <Text fontSize="2xl" fontWeight="800" color="green.600">
+              <Card variant="outline">
+                <CardContent p={6} textAlign="center">
+                  <VStack gap={3}>
+                    <Text fontSize="3xl" fontWeight="bold" color="primary.600">
                       {userReservations.filter(r => r.status === 'COMPLETED').length}
                     </Text>
-                    <Text fontSize="sm" color="gray.600">
+                    <Text fontSize="sm" color="gray.600" fontWeight="medium">
                       利用回数
                     </Text>
                   </VStack>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardContent p={4} textAlign="center">
-                  <VStack gap={2}>
-                    <Text fontSize="2xl" fontWeight="800" color="purple.600">
+              <Card variant="outline">
+                <CardContent p={6} textAlign="center">
+                  <VStack gap={3}>
+                    <Text fontSize="3xl" fontWeight="bold" color="primary.600">
                       3
                     </Text>
-                    <Text fontSize="sm" color="gray.600">
+                    <Text fontSize="sm" color="gray.600" fontWeight="medium">
                       お気に入り店舗
                     </Text>
                   </VStack>
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardContent p={4} textAlign="center">
-                  <VStack gap={2}>
-                    <Text fontSize="2xl" fontWeight="800" color="orange.600">
+              <Card variant="outline">
+                <CardContent p={6} textAlign="center">
+                  <VStack gap={3}>
+                    <Badge
+                      bg="primary.500"
+                      color="white"
+                      fontSize="md"
+                      px={4}
+                      py={2}
+                      borderRadius="lg"
+                      fontWeight="bold"
+                    >
                       ゴールド
-                    </Text>
-                    <Text fontSize="sm" color="gray.600">
+                    </Badge>
+                    <Text fontSize="sm" color="gray.600" fontWeight="medium">
                       会員ランク
                     </Text>
                   </VStack>
@@ -205,17 +213,18 @@ export default function MyPage() {
               <VStack gap={8} align="stretch">
 
                 {/* Menu Grid */}
-                <VStack gap={4} align="stretch">
-                  <Heading size="md" color="gray.800">
+                <VStack gap={6} align="stretch">
+                  <Heading size="lg" color="gray.900" fontWeight="semibold">
                     メニュー
                   </Heading>
                   <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
                     {menuItems.map((item) => (
                       <Link key={item.href} href={item.href}>
                         <Card
+                          variant="outline"
                           _hover={{
-                            transform: 'translateY(-2px)',
-                            shadow: 'lg'
+                            borderColor: 'primary.300',
+                            shadow: 'md'
                           }}
                           transition="all 0.2s ease"
                           cursor="pointer"
@@ -225,8 +234,8 @@ export default function MyPage() {
                               <Box
                                 w={12}
                                 h={12}
-                                bg={`${item.color}.100`}
-                                borderRadius="12px"
+                                bg="primary.50"
+                                borderRadius="lg"
                                 display="flex"
                                 alignItems="center"
                                 justifyContent="center"
@@ -234,8 +243,8 @@ export default function MyPage() {
                               >
                                 {item.icon}
                               </Box>
-                              <VStack align="start" gap={1} flex="1">
-                                <Text fontWeight="600" color="gray.800">
+                              <VStack align="start" gap={2} flex="1">
+                                <Text fontWeight="semibold" color="gray.900">
                                   {item.title}
                                 </Text>
                                 <Text fontSize="sm" color="gray.600">
@@ -251,28 +260,28 @@ export default function MyPage() {
                 </VStack>
 
                 {/* Recent Activity */}
-                <VStack gap={4} align="stretch">
+                <VStack gap={6} align="stretch">
                   <HStack justify="space-between">
-                    <Heading size="md" color="gray.800">
+                    <Heading size="lg" color="gray.900" fontWeight="semibold">
                       最近の利用履歴
                     </Heading>
                     <Link href="/my/reservations">
-                      <Button variant="ghost" size="sm">
+                      <Button variant="outline" size="sm">
                         すべて見る →
                       </Button>
                     </Link>
                   </HStack>
 
                   {recentReservations.length === 0 ? (
-                    <Card>
+                    <Card variant="outline">
                       <CardContent p={8} textAlign="center">
-                        <VStack gap={3}>
+                        <VStack gap={4}>
                           <Text fontSize="4xl">📋</Text>
                           <Text color="gray.500">
                             まだ利用履歴がありません
                           </Text>
                           <Link href="/stores">
-                            <Button variant="outline" size="sm">
+                            <Button variant="primary" size="sm">
                               サロンを探す
                             </Button>
                           </Link>
@@ -280,27 +289,27 @@ export default function MyPage() {
                       </CardContent>
                     </Card>
                   ) : (
-                    <VStack gap={3} align="stretch">
+                    <VStack gap={4} align="stretch">
                       {recentReservations.map((reservation) => {
                         const store = getMockStoreById(reservation.storeId)
                         return (
-                          <Card key={reservation.id}>
-                            <CardContent p={4}>
+                          <Card key={reservation.id} variant="outline">
+                            <CardContent p={5}>
                               <HStack justify="space-between">
                                 <HStack gap={4}>
                                   <Box
-                                    w={10}
-                                    h={10}
-                                    bg="gray.100"
-                                    borderRadius="8px"
+                                    w={12}
+                                    h={12}
+                                    bg="primary.50"
+                                    borderRadius="lg"
                                     display="flex"
                                     alignItems="center"
                                     justifyContent="center"
                                   >
-                                    <Text>✂️</Text>
+                                    <Text fontSize="lg">✂️</Text>
                                   </Box>
                                   <VStack align="start" gap={1}>
-                                    <Text fontWeight="600" color="gray.800">
+                                    <Text fontWeight="semibold" color="gray.900">
                                       {store?.name}
                                     </Text>
                                     <Text fontSize="sm" color="gray.600">
@@ -308,9 +317,9 @@ export default function MyPage() {
                                     </Text>
                                   </VStack>
                                 </HStack>
-                                <VStack align="end" gap={1}>
+                                <VStack align="end" gap={2}>
                                   {getStatusBadge(reservation.status)}
-                                  <Text fontSize="sm" fontWeight="600" color="gray.800">
+                                  <Text fontSize="sm" fontWeight="bold" color="gray.900">
                                     {formatPrice(reservation.totalPrice)}
                                   </Text>
                                 </VStack>
@@ -331,21 +340,21 @@ export default function MyPage() {
               <VStack gap={6} align="stretch">
 
                 {/* Upcoming Reservations */}
-                <Card>
+                <Card variant="outline">
                   <CardContent p={6}>
                     <VStack gap={4} align="stretch">
-                      <Heading size="sm" color="gray.800">
+                      <Heading size="md" color="gray.900" fontWeight="semibold">
                         今後の予約
                       </Heading>
 
                       {upcomingReservations.length === 0 ? (
-                        <VStack gap={3} py={4}>
+                        <VStack gap={4} py={6}>
                           <Text fontSize="3xl">📅</Text>
                           <Text fontSize="sm" color="gray.500" textAlign="center">
                             予約はありません
                           </Text>
                           <Link href="/stores">
-                            <Button variant="outline" size="sm">
+                            <Button variant="primary" size="sm">
                               予約する
                             </Button>
                           </Link>
@@ -357,14 +366,14 @@ export default function MyPage() {
                             return (
                               <Box
                                 key={reservation.id}
-                                p={3}
-                                bg="blue.50"
-                                borderRadius="8px"
+                                p={4}
+                                bg="primary.50"
+                                borderRadius="lg"
                                 border="1px solid"
-                                borderColor="blue.200"
+                                borderColor="primary.200"
                               >
                                 <VStack align="start" gap={2}>
-                                  <Text fontSize="sm" fontWeight="600" color="gray.800">
+                                  <Text fontSize="sm" fontWeight="semibold" color="gray.900">
                                     {store?.name}
                                   </Text>
                                   <Text fontSize="xs" color="gray.600">
@@ -385,28 +394,28 @@ export default function MyPage() {
                 </Card>
 
                 {/* Quick Actions */}
-                <Card>
+                <Card variant="outline">
                   <CardContent p={6}>
                     <VStack gap={4} align="stretch">
-                      <Heading size="sm" color="gray.800">
+                      <Heading size="md" color="gray.900" fontWeight="semibold">
                         クイックアクション
                       </Heading>
 
-                      <VStack gap={2} align="stretch">
+                      <VStack gap={3} align="stretch">
                         <Link href="/stores">
-                          <Button variant="outline" size="sm" fullWidth>
+                          <Button variant="primary" size="md" w="full">
                             サロンを探す
                           </Button>
                         </Link>
 
                         <Link href="/my/reservations">
-                          <Button variant="ghost" size="sm" fullWidth>
+                          <Button variant="outline" size="md" w="full">
                             予約を確認
                           </Button>
                         </Link>
 
                         <Link href="/my/account">
-                          <Button variant="ghost" size="sm" fullWidth>
+                          <Button variant="outline" size="md" w="full">
                             プロフィール編集
                           </Button>
                         </Link>
@@ -416,43 +425,43 @@ export default function MyPage() {
                 </Card>
 
                 {/* Notifications */}
-                <Card>
+                <Card variant="outline">
                   <CardContent p={6}>
                     <VStack gap={4} align="stretch">
-                      <Heading size="sm" color="gray.800">
+                      <Heading size="md" color="gray.900" fontWeight="semibold">
                         お知らせ
                       </Heading>
 
                       <VStack gap={3} align="stretch">
                         <Box
-                          p={3}
-                          bg="yellow.50"
-                          borderRadius="8px"
+                          p={4}
+                          bg="orange.50"
+                          borderRadius="lg"
                           border="1px solid"
-                          borderColor="yellow.200"
+                          borderColor="orange.200"
                         >
-                          <VStack align="start" gap={1}>
-                            <Text fontSize="sm" fontWeight="600" color="yellow.800">
+                          <VStack align="start" gap={2}>
+                            <Text fontSize="sm" fontWeight="semibold" color="orange.800">
                               キャンペーン情報
                             </Text>
-                            <Text fontSize="xs" color="yellow.700">
+                            <Text fontSize="xs" color="orange.700" lineHeight="1.4">
                               初回限定20%OFFクーポンが利用可能です
                             </Text>
                           </VStack>
                         </Box>
 
                         <Box
-                          p={3}
-                          bg="blue.50"
-                          borderRadius="8px"
+                          p={4}
+                          bg="primary.50"
+                          borderRadius="lg"
                           border="1px solid"
-                          borderColor="blue.200"
+                          borderColor="primary.200"
                         >
-                          <VStack align="start" gap={1}>
-                            <Text fontSize="sm" fontWeight="600" color="blue.800">
+                          <VStack align="start" gap={2}>
+                            <Text fontSize="sm" fontWeight="semibold" color="primary.800">
                               システム更新
                             </Text>
-                            <Text fontSize="xs" color="blue.700">
+                            <Text fontSize="xs" color="primary.700" lineHeight="1.4">
                               予約システムの機能が向上しました
                             </Text>
                           </VStack>

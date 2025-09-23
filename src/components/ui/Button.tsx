@@ -42,8 +42,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         loadingText: isLoading ? '読み込み中...' : undefined,
         width: fullWidth ? 'full' : width,
         transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-        _hover: { transform: 'translateY(-2px)', shadow: 'lg' },
-        _active: { transform: 'translateY(0px)' },
+        _hover: { shadow: 'lg' },
+        _active: { shadow: 'md' },
         fontWeight: 'medium',
         ...props
       };
@@ -59,11 +59,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             _hover: {
               ...baseProps._hover,
               bg: 'linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%)',
-              shadow: '0 12px 35px rgba(102, 126, 234, 0.6)',
-              transform: 'translateY(-2px) scale(1.02)'
+              shadow: '0 12px 35px rgba(102, 126, 234, 0.6)'
             },
             _active: {
-              transform: 'translateY(0px) scale(0.98)',
               shadow: '0 4px 15px rgba(102, 126, 234, 0.4)'
             }
           };
@@ -81,8 +79,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               ...baseProps._hover,
               bg: 'white',
               borderColor: 'primary.300',
-              shadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
-              transform: 'translateY(-2px)'
+              shadow: '0 8px 25px rgba(0, 0, 0, 0.15)'
             }
           };
 
@@ -96,8 +93,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             _hover: {
               ...baseProps._hover,
               bg: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
-              shadow: '0 12px 35px rgba(239, 68, 68, 0.6)',
-              transform: 'translateY(-2px) scale(1.02)'
+              shadow: '0 12px 35px rgba(239, 68, 68, 0.6)'
             }
           };
 
@@ -110,8 +106,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             _hover: {
               ...baseProps._hover,
               bg: 'rgba(0, 0, 0, 0.05)',
-              color: 'gray.800',
-              transform: 'translateY(-1px)'
+              color: 'gray.800'
             }
           };
 
@@ -127,8 +122,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               borderColor: 'primary.400',
               color: 'primary.600',
               bg: 'rgba(102, 126, 234, 0.05)',
-              shadow: '0 4px 15px rgba(102, 126, 234, 0.2)',
-              transform: 'translateY(-2px)'
+              shadow: '0 4px 15px rgba(102, 126, 234, 0.2)'
             }
           };
 
@@ -154,7 +148,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             _hover: {
               ...baseProps._hover,
               shadow: '0 12px 35px rgba(6, 182, 212, 0.6)',
-              transform: 'translateY(-2px) scale(1.02)',
               _before: {
                 left: '100%'
               }
