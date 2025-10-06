@@ -19,7 +19,7 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Card, CardContent } from '@/components/ui/Card'
 import { MainLayout } from '@/components/layouts/MainLayout'
-import { SalonCarousel } from '@/components/ui/SalonCarousel'
+import { SalonModel, SalonBackgroundModel } from '@/components/three/SalonModel'
 const mockStores = [
   {
     id: '1',
@@ -109,103 +109,172 @@ export default function HomePage() {
 
   return (
     <MainLayout>
-      {/* Hero Section */}
+      {/* Hero Section with 3D Background */}
       <Box
         position="relative"
-        bg="white"
-        py={{ base: 16, md: 24 }}
+        bg="linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%)"
+        py={{ base: 20, md: 24 }}
+        overflow="hidden"
+        minH="100vh"
       >
-        <Container maxW="6xl" position="relative" zIndex={1}>
-          <VStack gap={12} align="center">
-            {/* Main Heading */}
-            <VStack gap={6} textAlign="center" maxW="4xl">
-              <Heading
-                size={{ base: '2xl', md: '4xl' }}
-                fontWeight="bold"
-                color="gray.900"
-                lineHeight="1.2"
-              >
-                理想のサロンを見つけよう
-              </Heading>
-              <Text
-                fontSize={{ base: 'lg', md: 'xl' }}
-                color="gray.600"
-                fontWeight="medium"
-                lineHeight="1.6"
-              >
-                美容室からネイル、エステまで。あなたにぴったりのサロンを簡単予約
-              </Text>
-            </VStack>
+        {/* 3D Background - Desktop only */}
+        <Box display={{ base: 'none', xl: 'block' }}>
+          <SalonBackgroundModel />
+        </Box>
 
-            {/* Search Box */}
-            <Box
-              bg="white"
-              borderRadius="xl"
-              p={8}
-              shadow="lg"
-              border="1px solid"
-              borderColor="gray.200"
-              w="full"
-              maxW="4xl"
-            >
-              <Grid 
-                templateColumns={{ base: '1fr', md: '2fr 1fr 1fr auto' }} 
-                gap={4}
-                alignItems="end"
+        {/* Content Overlay */}
+        <Container maxW="6xl" position="relative" zIndex={1}>
+          <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} gap={12} alignItems="center" minH="80vh">
+            {/* Left: Text Content */}
+            <VStack gap={10} align={{ base: 'center', lg: 'start' }} textAlign={{ base: 'center', lg: 'left' }}>
+              {/* Main Heading */}
+              <VStack gap={6} maxW="xl">
+                <Heading
+                  size={{ base: '3xl', md: '4xl' }}
+                  fontWeight="bold"
+                  color="gray.900"
+                  lineHeight="1.1"
+                  letterSpacing="-0.02em"
+                >
+                  理想のサロンを
+                  <br />
+                  見つけよう
+                </Heading>
+                <Text
+                  fontSize={{ base: 'xl', md: '2xl' }}
+                  color="gray.600"
+                  fontWeight="medium"
+                  lineHeight="1.5"
+                >
+                  美容室からネイル、エステまで。
+                  <br />
+                  あなたにぴったりのサロンを簡単予約
+                </Text>
+              </VStack>
+
+              {/* Enhanced Search Box */}
+              <Box
+                bg="rgba(255, 255, 255, 0.95)"
+                backdropFilter="blur(10px)"
+                borderRadius="2xl"
+                p={8}
+                shadow="2xl"
+                border="1px solid"
+                borderColor="rgba(255, 255, 255, 0.2)"
+                w="full"
+                maxW="lg"
               >
-                <GridItem>
+                <VStack gap={5}>
                   <Input
-                    placeholder="目的地を入力"
+                    placeholder="どちらの地域でサロンをお探しですか？"
                     size="lg"
                     value={searchArea}
                     onChange={(e) => setSearchArea(e.target.value)}
                   />
-                </GridItem>
-                
-                <GridItem>
-                  <Box position="relative">
-                    <select
-                      value={searchService}
-                      onChange={(e) => setSearchService(e.target.value)}
-                      style={{
-                        width: '100%',
-                        height: '48px',
-                        padding: '16px',
-                        backgroundColor: '#f7fafc',
-                        border: 'none',
-                        borderRadius: '6px',
-                        fontSize: '16px',
-                        color: '#4a5568',
-                        outline: 'none'
-                      }}
-                    >
-                      {services.map((service) => (
-                        <option key={service.value} value={service.value}>
-                          {service.label}
-                        </option>
-                      ))}
-                    </select>
-                  </Box>
-                </GridItem>
-                
-                <GridItem>
-                  <Input
-                    type="date"
-                    size="lg"
-                    value={searchDate}
-                    onChange={(e) => setSearchDate(e.target.value)}
-                  />
-                </GridItem>
-                
-                <GridItem>
+
+                  <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={4} w="full">
+                    <Box position="relative">
+                      <select
+                        value={searchService}
+                        onChange={(e) => setSearchService(e.target.value)}
+                        style={{
+                          width: '100%',
+                          height: '52px',
+                          padding: '16px',
+                          backgroundColor: 'rgba(248, 250, 252, 0.8)',
+                          border: '1px solid rgba(226, 232, 240, 0.5)',
+                          borderRadius: '8px',
+                          fontSize: '16px',
+                          color: '#374151',
+                          outline: 'none',
+                          backdropFilter: 'blur(5px)'
+                        }}
+                      >
+                        {services.map((service) => (
+                          <option key={service.value} value={service.value}>
+                            {service.label}
+                          </option>
+                        ))}
+                      </select>
+                    </Box>
+
+                    <Input
+                      type="date"
+                      size="lg"
+                      value={searchDate}
+                      onChange={(e) => setSearchDate(e.target.value)}
+                    />
+                  </Grid>
+
                   <Button
                     variant="primary"
                     size="lg"
+                    fullWidth
                   >
-                    検索
+                    サロンを検索
                   </Button>
-                </GridItem>
-              </Grid>
+                </VStack>
+              </Box>
+
+              {/* Trust indicators */}
+              <HStack gap={8} opacity={0.7}>
+                <VStack gap={1} align="center">
+                  <Text fontSize="2xl" fontWeight="bold" color="gray.900">
+                    1,000+
+                  </Text>
+                  <Text fontSize="sm" color="gray.600">
+                    提携サロン
+                  </Text>
+                </VStack>
+                <VStack gap={1} align="center">
+                  <Text fontSize="2xl" fontWeight="bold" color="gray.900">
+                    50,000+
+                  </Text>
+                  <Text fontSize="sm" color="gray.600">
+                    予約実績
+                  </Text>
+                </VStack>
+                <VStack gap={1} align="center">
+                  <Text fontSize="2xl" fontWeight="bold" color="gray.900">
+                    4.8★
+                  </Text>
+                  <Text fontSize="sm" color="gray.600">
+                    平均評価
+                  </Text>
+                </VStack>
+              </HStack>
+            </VStack>
+
+            {/* Right: Interactive 3D Model (Large screens) */}
+            <Box display={{ base: 'none', lg: 'block', xl: 'none' }}>
+              <Box
+                borderRadius="2xl"
+                overflow="hidden"
+                shadow="2xl"
+                border="1px solid"
+                borderColor="rgba(255, 255, 255, 0.2)"
+              >
+                <SalonModel />
+              </Box>
+            </Box>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* Mobile 3D Model Section */}
+      <Box py={12} bg="white" display={{ base: 'block', lg: 'none' }}>
+        <Container maxW="6xl">
+          <VStack gap={6} align="center">
+            <VStack gap={2} textAlign="center">
+              <Heading size="md" color="gray.800" fontWeight="600">
+                3Dサロン体験
+              </Heading>
+              <Text color="gray.600" fontSize="md">
+                バーチャルサロンをご覧ください
+              </Text>
+            </VStack>
+            <Box w="full" maxW="lg">
+              <SalonModel />
             </Box>
           </VStack>
         </Container>
